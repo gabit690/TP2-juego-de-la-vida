@@ -1,9 +1,9 @@
 #include "energia.h"
 
 		Energia::Energia(float factorNacimientoParcela, float factorMuerteParcela){
-			energiaTotal = 0;
-			factorNacimiento = factorNacimientoParcela;
-			factorMuerte = factorMuerteParcela;
+			this->energiaTotal = 0;
+			this->factorNacimiento = factorNacimientoParcela;
+			this->factorMuerte = factorMuerteParcela;
 		}
 
 		float Energia::nacimientoCelular(){
