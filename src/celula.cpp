@@ -1,5 +1,5 @@
-
-struct Celula{
+/*
+class Celula{
 private:
 	Energia energia;
 	bool estado;
@@ -34,3 +34,4 @@ public:
 
 	}
 };
+*/

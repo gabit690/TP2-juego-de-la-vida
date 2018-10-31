@@ -8,6 +8,6 @@
 #include <iostream>
 
 int main(){
-	std::cout << "Hola, hola, hooolaaa";
+	std::cout << "Hooolaaa";
 	return 0;
 }
