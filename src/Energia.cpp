@@ -1,4 +1,4 @@
-#include "energia.h"
+#include "Energia.h"
 
 		Energia::Energia(float factorNacimientoParcela, float factorMuerteParcela){
 			this->energiaTotal = 0;

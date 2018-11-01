@@ -1,37 +1,49 @@
+#include <string>
 #include "Color.h"
 #include "Energia.h"
+#include "Celula.h"
+using namespace std;
 
-class Celula{
-private:
-	Energia energia;
-	bool estado;
-	Color color;
-public:
-	Celula(bool estadoInicial,Energia energiaInicial,Color colorInicial){
-		energia=energiaInicial;
-		estado=estadoInicial;
-		color=colorInicial;
+
+Celula::Celula(bool estadoInicial,Energia energiaInicial,Color colorInicial){
+	energia=energiaInicial;
+	estadoActual=estadoInicial;
+	color=colorInicial;
+}
+
+void Celula::cambiarEstadoDeLaCelula(){
+	if (estadoActual=="viva"){
+		estadoActual="muerta";
+	}else{
+		estadoActual="viva";
 	}
-	void cambiarEstadoDeLaCelula(){
-		if (estado){
-			estado=false;
-		}else{
-			estado=true;
-		}
-	}
-	void cambiarColorDeLaCelula(Color nuevoColor){
-		color=nuevoColor;
-	}
-	void cambiarEnergia(Energia nuevaEnergia){
-		energia=nuevaEnergia;
-	}
-	Celula* crearCopiaDeLaCelula(Celula* celulaACopiar){
-		Celula* nuevaCopia;
-		nuevaCopia->color=celulaACopiar->color;
-		nuevaCopia->energia=celulaACopiar->energia;
-		nuevaCopia->estado=celulaACopiar->estado;
-		return nuevaCopia;
-	}
-	~Celula(){
-	}
-};
+}
+
+void Celula::cambiarColorDeLaCelula(Color nuevoColor){
+	color=nuevoColor;
+}
+
+void Celula::cambiarEnergia(Energia nuevaEnergia){
+	energia=nuevaEnergia;
+}
+void Celula::setProximoEstado(string estado){
+	this->proximoEstado=estado;
+}
+void Celula::setEstadoActual(string estado){
+	this->estadoActual=estado;
+}
+string Celula::getEstadoActual(){
+	return estadoActual;
+}
+string Celula::getProximoEstado(){
+	return proximoEstado;
+}
+
+Celula* Celula::crearCopiaDeLaCelula(Celula* celulaACopiar){
+	Celula* nuevaCopia;
+	nuevaCopia->color=celulaACopiar->color;
+	nuevaCopia->energia=celulaACopiar->energia;
+	nuevaCopia->estadoActual=celulaACopiar->estadoActual;
+	return nuevaCopia;
+}
+Celula::~Celula();

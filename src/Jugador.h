@@ -10,15 +10,16 @@
 
 class Jugador{
 private:
-	Informe DatosDeLaPartida;
+	Informe InformeDeLaPartida;
 	Datos DatosIniciales;
+	Tablero tablero;
 
 public:
 	Jugador();
 	void IniciarPartida();
 	void JugarUnTurno();
 	int getCantidadAdyacentesVivos(Tablero* tablero, int columna,int fila, int cantidadFilas,int cantidadColumnas);
-}
+};
 
 
 

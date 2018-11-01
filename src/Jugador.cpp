@@ -10,6 +10,7 @@
 #include "Parcela.h"
 #include "Jugador.h"
 #include "Datos.h" //hay que hacerla, claro.
+#include "Celula.h"
 
  Jugador::Jugador();
 
@@ -20,21 +21,51 @@
 	DatosIniciales.getDatosIniciales();
 
 	//Se crea el tablero diamico.
-	Tablero tablero1(DatosIniciales.getCantidadFilas,DatosIniciales.getCantidadColumnas);
+	tablero(DatosIniciales.getCantidadFilas,DatosIniciales.getCantidadColumnas);
 
 	//For que saque las parcelas de algun lugar y las cargue al tablero
 	{
-		tablero1.cargarParcelaAlTablero(parcela,x,y);
+		tablero.cargarParcelaAlTablero(parcela,x,y);
 	}
 
 	//Ya quedo el tablero dinamico creado, con las parcelas cargadas.
 
 	//Ahora hay que actualizar los datos en Informe.
 
-	DatosDeLaPartida.setCelulasVivas(DatosIniciales->celulasVivas);
-	//setear todos los datos de DatosDeLaPartida con sus primitivas.
+	InformeDeLaPartida.setCelulasVivas(DatosIniciales->totalCelulasVivas);
+	//setear todos los datos de InformeDeLaPartida con sus primitivas.
 
 }
+
+ void Jugador::JugarUnTurno(){
+
+	 int cantidadColumnas=DatosIniciales.getCantidadColumnas();
+	 int cantidadFilas=DatosIniciales.getCantidadColumnas();
+
+	 for (int i=0;i<cantidadColumnas;i++){
+		for (int j=0;j<cantidadColumnas;j++){
+			int vecinosVivos=getCantidadAdyacentesVivos(&tablero,i,j,cantidadColumnas,cantidadFilas);
+			if ((tablero[i][j]->obtenerCelula()->getEstadoActual=="viva" && (vecinosVivos==2 or vecinosVivos==3)) or (tablero[i][j]->obtenerCelula()->estadoActual=="muerta" && vecinosVivos==3)){
+				tablero[i][j]->obtenerCelula()->setProximoEstado("viva");
+				if (tablero[i][j]->obtenerCelula()->estado=="muerta" and tablero[i][j]->obtenerCelula()->proximoEstado="viva"){
+					InformeDelJuego->nacimientosEnUltimoTurno++;
+					InformeDelJuego->cantidadCelulasVivas++;
+				}
+			}else{
+
+				tablero[i][j]->obtenerCelula()->proximoEstado="muerta";
+
+				if (tablero[i][j]->obtenerCelula()->estado=="viva"){
+					InformeDelJuego->muertesEnUltimoTurno++;
+					InformeDelJuego->cantidadCelulasVivas--;
+				}
+
+			}
+		}
+	}
+
+	//actualizarEstadoDeCelulas(); tablero[i][j]->estadoActual=tablero[i][j]->proximoEstado;
+ }
 
 int Jugador::getCantidadAdyacentesVivos(Tablero* tablero, int columna,int fila, int cantidadFilas,int cantidadColumnas){
 

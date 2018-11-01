@@ -5,6 +5,7 @@
  *      Author: santicouce
  */
 #include"Jugador.h"
+#include "Tablero.h"
 
 int main(){
 
