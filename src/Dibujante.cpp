@@ -1,18 +1,20 @@
+/*
+ * Dibujante.cpp
+ *
+ *  Created on: 1 nov. 2018
+ *      Author: gabit
+ */
+
 #include "Dibujante.h"
 
-Dibujante::Dibujante(Tablero *tablero, unsigned int ancho, unsigned int alto){
+Dibujante::Dibujante(){
 
-	this->tablero = tablero;
-	this->anchoDeImagen = ancho;
-	this->altoDeImagen = alto;
-	this->anchoDeFicha = this->anchoDeImagen / tablero->contarColumnas();
-	this->altoDeFicha = this->altoDeImagen / tablero->contarFilas();
 	this->cantidadDeImagenesCreadas = 1;
 
 }
 
-void Dibujante::dibujarTablero(){
-
+void Dibujante::dibujarTableros(Lista<Tablero*>* tablero, unsigned int medidaDeParcela){
+/*
 	MapaDeBits* imagen = new MapaDeBits(this->anchoDeImagen, this->altoDeImagen);
 
 	for (unsigned int i = 1; i <= this->tablero->contarColumnas(); i++){
@@ -27,8 +29,18 @@ void Dibujante::dibujarTablero(){
 	imagen->escribir("imagen_", this->cantidadDeImagenesCreadas);
 	this->cantidadDeImagenesCreadas++;
 	delete imagen;
+	*/
 }
 
+void dibujarUnaParcela(Parcela* unaParcela, MapaDeBits* imagen){
+
+}
+
+void dibujarUnaCelula(Celula* unaCelula, MapaDeBits* imagen){
+
+}
+
+/*
 void Dibujante::dibujar(Columna* columna, MapaDeBits* imagen){
 
 	Lista<Ficha*>* fichas = columna->obtenerFichas();
@@ -58,3 +70,9 @@ void Dibujante::dibujar(Ficha* ficha, MapaDeBits* imagen){
 		}
 	}
 }
+*/
+
+Dibujante::~Dibujante() {
+	// TODO Auto-generated destructor stub
+}
+

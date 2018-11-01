@@ -10,7 +10,7 @@ MapaDeBits::MapaDeBits(unsigned int ancho, unsigned int alto){
 }
 
 void MapaDeBits::asignar(unsigned int columna, unsigned int fila, Color* nuevoColor){
-	//this->imagen->SetPixel(columna, (this->alto - 1) - fila, nuevoColor->obtenerPixel());
+	this->imagen->SetPixel(columna, (this->alto - 1) - fila, nuevoColor->obtenerPixel());
 }
 
 void MapaDeBits::escribir(std::string nombreDeArchivo, unsigned int version){

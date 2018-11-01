@@ -1,28 +1,58 @@
-#ifndef SRC_COLOR_H_
-#define SRC_COLOR_H_
+#ifndef COLOR_H_
+#define COLOR_H_
+
+#include "EasyBMP.h"
+#include <cstdlib>
 
 class Color {
-private:
 
-	int red;
-	int green;
-	int blue;
+	private:
 
-public:
-	Color(int red, int green, int blue);
-	virtual ~Color();
+		RGBApixel* colores;
 
-	int getBlue() const;
+	public:
 
-	void setBlue(int blue);
+		/* PRE: rojo, verde y azul son enteros entre 0 y 255, siendo
+		 * 		0 ausencia de color y 255 color completo.
+		 */
+		Color(ebmpBYTE rojo, ebmpBYTE verde, ebmpBYTE azul);
 
-	int getGreen() const;
+		/* POST: crea un color en base a otro existente. */
+		Color(Color* otroColor);
 
-	void setGreen(int green);
+		/* POST: devuelve la cantidad de rojo*/
+		ebmpBYTE obtenerRojo();
 
-	int getRed() const;
+		/* POST: devuelve la cantidad de verde */
+		ebmpBYTE obtenerVerde();
 
-	void setRed(int red);
+		/* POST: devuelve la cantida de azul */
+		ebmpBYTE obtenerAzul();
+
+		/* PRE: 'nuevoRojo' es un entero entre 0 y 255.
+		 * POST: asigna el 'nuevoRojo' al color de la ficha.
+		 */
+		void asignarRojo(ebmpBYTE nuevoRojo);
+
+		/* PRE: 'nuevoVerde' es un entero entre 0 y 255.
+		 * POST: asigna el 'nuevoVerde' al color de la ficha.
+		 */
+		void asignarVerde(ebmpBYTE nuevoVerde);
+
+		/* PRE: 'nuevoAzul' es un entero entre 0 y 255.
+		 * POST: asigna el 'nuevoAzul' al color de la ficha.
+		 */
+		void asignarAzul(ebmpBYTE nuevoAzul);
+
+		/* POST: devuelve un RGBApixel con los colores asociados */
+		RGBApixel obtenerPixel();
+
+		/* POST: asigna a sus colores un color aleatorio */
+		void asignarColorAleatorio();
+
+		/* POST: libera los recursos utilizados */
+		~Color();
+
 };
 
-#endif /* SRC_COLOR_H_ */
+#endif /* COLOR_H_ */

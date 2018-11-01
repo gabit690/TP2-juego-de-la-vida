@@ -1,35 +1,69 @@
 #include "Color.h"
 
-Color::Color(int red, int green, int blue) {
-	this->red = red;
-	this->green = green;
-	this->blue = blue;
+Color::Color(ebmpBYTE rojo, ebmpBYTE verde, ebmpBYTE azul){
+
+	this->colores = new RGBApixel;
+	this->colores->Red = rojo;
+	this->colores->Green = verde;
+	this->colores->Blue = azul;
 }
 
-Color::~Color() {
-	// TODO Auto-generated destructor stub
+Color::Color(Color* otroColor){
+
+	this->colores = new RGBApixel;
+	this->colores->Red = otroColor->colores->Red;
+	this->colores->Green = otroColor->colores->Green;
+	this->colores->Blue = otroColor->colores->Blue;
 }
 
-int Color::getBlue() const {
-	return blue;
+ebmpBYTE Color::obtenerRojo(){
+
+	return this->colores->Red;
 }
 
-void Color::setBlue(int blue) {
-	this->blue = blue;
+ebmpBYTE Color::obtenerVerde(){
+
+	return this->colores->Green;
 }
 
-int Color::getGreen() const {
-	return green;
+ebmpBYTE Color::obtenerAzul(){
+
+	return this->colores->Blue;
 }
 
-void Color::setGreen(int green) {
-	this->green = green;
+void Color::asignarRojo(ebmpBYTE nuevoRojo){
+
+	this->colores->Red = nuevoRojo;
 }
 
-int Color::getRed() const {
-	return red;
+void Color::asignarVerde(ebmpBYTE nuevoVerde){
+
+	this->colores->Green = nuevoVerde;
 }
 
-void Color::setRed(int red) {
-	this->red = red;
+void Color::asignarAzul(ebmpBYTE nuevoAzul){
+
+	this->colores->Blue = nuevoAzul;
 }
+
+RGBApixel Color::obtenerPixel(){
+
+	return *(this->colores);
+}
+
+void Color::asignarColorAleatorio(){
+
+	this->colores->Red = (unsigned char)(std::rand() % 255);
+	this->colores->Green = (unsigned char)(std::rand() % 255);
+	this->colores->Blue = (unsigned char)(std::rand() % 255);
+}
+
+Color::~Color(){
+
+	delete this->colores;
+}
+
+
+
+
+
