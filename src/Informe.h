@@ -14,13 +14,13 @@
 class Informe {
 
 private:
-	int turno;
-	int celulasVivas;
-	int nacimientos;
-	int nacimientosTotales;
-	int muertes;
-	int muertesTotales;
-	int turnosSeguidosSinCambios;
+	unsigned int turno;
+	unsigned int celulasVivas;
+	unsigned int nacimientos;
+	unsigned int nacimientosTotales;
+	unsigned int muertes;
+	unsigned int muertesTotales;
+	unsigned int turnosSeguidosSinCambios;
 
 public:
 
@@ -34,23 +34,47 @@ public:
 
 	//PRE: valor es un numero positivo.
 	//POST: se registran "valor" de celulas vivas.
-	void setCelulasVivas(int valor);
+	void setCelulasVivas(unsigned int  valor);
 
 	//PRE: valor es un numero positivo.
 	//POST: se registran "valor" de nacimientos.
-	void setNacimientos(int valor);
+	void setNacimientos(unsigned int  valor);
 
 	//PRE: valor es un numero positivo.
 	//POST: Aumenta el acumulador de nacimientos totales en "valor".
-	void aumentarNacimientosTotales(int valor);
+	void aumentarNacimientosTotales(unsigned int valor);
 
 	//PRE: valor es un numero positivo.
 	//POST: se registran "valor" de muertes.
-	void setMuertes(int valor);
+	void setMuertes(unsigned int valor);
+
+	//PRE: -.
+	//POST: obtiene la cantidad de turnos registrada.
+	unsigned int getTurno();
+
+	//PRE: -.
+	//POST: obtiene la cantidad de celulas vivas registrada.
+	unsigned int getCelulasVivas();
+
+	//PRE: -.
+	//POST: obtiene la cantidad de nacimientos registrada.
+	unsigned int getNacimientos();
+
+	//PRE: -.
+	//POST: obtiene la cantidad de nacimientos totales registrada.
+	unsigned int getNacimientosTotales();
+
+	//PRE: -.
+	//POST: obtiene la cantidad de muertes registrada.
+	unsigned int getMuertes();
+
+	//PRE: -.
+	//POST: obtiene la cantidad de muertes totales registrada.
+	unsigned int getMuertesTotales();
 
 	//PRE: valor es un numero positivo.
 	//POST: Aumenta el acumulador de muertes totales en "valor".
-	void aumentarMuertesTotales(int valor);
+	void aumentarMuertesTotales(unsigned int valor);
 
 	//PRE: informes inicializados.
 	//POST: controla si se produjeron cambios en el tablero.

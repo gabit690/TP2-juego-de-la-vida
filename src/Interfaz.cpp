@@ -65,18 +65,18 @@ void pedirUnaCantidadDeTurnos(){
 }
 
 void mostrarInformesDelJuego(Informe* informes){
-	cout << "INFORMES DEL TURNO NUMERO " << informes->turno << endl;
-	cout << "Celulas vivas: " << informes->celulasVivas << endl;
-	cout << "Nacimientos: " << informes->nacimientos << endl;
-	float promedioDeNacimientos = ((float)informes->nacimientosTotales/(float)informes->turno);
+	cout << "INFORMES DEL TURNO NUMERO " << informes->getTurno() << endl;
+	cout << "Celulas vivas: " << informes->getCelulasVivas() << endl;
+	cout << "Nacimientos: " << informes->getNacimientos() << endl;
+	float promedioDeNacimientos = ((float)informes->getNacimientosTotales()/(float)informes->getTurno());
 	cout << "Promedio de nacimientos Totales: " << promedioDeNacimientos  << endl;
-	cout << "Muertes: " << informes->muertes << endl;
-	float promedioDeMuertes = ((float)informes->muertesTotales/(float)informes->turno);
+	cout << "Muertes: " << informes->getMuertes() << endl;
+	float promedioDeMuertes = ((float)informes->getMuertesTotales()/(float)informes->getTurno());
 	cout << "Promedio de muertes totales: " << promedioDeMuertes << endl << endl;
 }
 
 void mostrarCantidadDeCelulasVivas(Informe* informes){
-	cout << "Celulas vivas: " << informes->celulasVivas << endl;
+	cout << "Celulas vivas: " << informes->getCelulasVivas()<< endl;
 	cout << endl;
 }
 

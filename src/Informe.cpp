@@ -21,23 +21,47 @@ void Informe::aumentarUnTurno(){
 	this->turno++;
 }
 
-void Informe::setCelulasVivas(int valor){
+void Informe::setCelulasVivas(unsigned int valor){
 	this->celulasVivas = valor;
 }
 
-void Informe::setNacimientos(int valor){
+void Informe::setNacimientos(unsigned int valor){
 	this->nacimientos = valor;
 }
 
-void Informe::aumentarNacimientosTotales(int valor){
+void Informe::aumentarNacimientosTotales(unsigned int valor){
 	this->nacimientosTotales+=valor;
 }
 
-void Informe::setMuertes(int valor){
+void Informe::setMuertes(unsigned int valor){
 	this->muertes = valor;
 }
 
-void Informe::aumentarMuertesTotales(int valor){
+unsigned int Informe::getTurno(){
+	return this->turno;
+}
+
+unsigned int Informe::getCelulasVivas(){
+	return this->celulasVivas;
+}
+
+unsigned int Informe::getNacimientos(){
+	return this->nacimientos;
+}
+
+unsigned int Informe::getNacimientosTotales(){
+	return this->nacimientosTotales;
+}
+
+unsigned int Informe::getMuertes(){
+	return this->muertes;
+}
+
+unsigned int Informe::getMuertesTotales(){
+	return this->muertesTotales;
+}
+
+void Informe::aumentarMuertesTotales(unsigned int valor){
 	this->muertesTotales+=valor;
 }
 
