@@ -36,6 +36,13 @@ Portal Parcela::obtenerPortal(){
 	return Portal;
 }
 
+bool Parcela::contieneCelulaViva(){
+	if (this->celula->estado){
+		return true;
+	}
+	return false;
+}
+
 Parcela::~Parcela() {
 	// TODO Auto-generated destructor stub
 }

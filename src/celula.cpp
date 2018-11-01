@@ -1,4 +1,6 @@
-/*
+#include "Color.h"
+#include "Energia.h"
+
 class Celula{
 private:
 	Energia energia;
@@ -23,15 +25,13 @@ public:
 	void cambiarEnergia(Energia nuevaEnergia){
 		energia=nuevaEnergia;
 	}
-	Celula crearCopiaDeLaCelula(Celula celulaACopiar){
-		Celula nuevaCopia;
+	Celula* crearCopiaDeLaCelula(Celula* celulaACopiar){
+		Celula* nuevaCopia;
 		nuevaCopia->color=celulaACopiar->color;
-		nuevaCopia->energia=ceulaACopiar->energia;
-		nuevaCopia->estado=ceulaACopiar->estado;
+		nuevaCopia->energia=celulaACopiar->energia;
+		nuevaCopia->estado=celulaACopiar->estado;
 		return nuevaCopia;
 	}
 	~Celula(){
-
 	}
 };
-*/

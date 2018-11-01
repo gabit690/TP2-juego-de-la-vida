@@ -1,14 +1,19 @@
 /*
  * main.cpp
  *
- *  Created on: 31 oct. 2018
- *      Author: gabit
+ *  Created on: 1 nov. 2018
+ *      Author: santicouce
  */
-
-#include <iostream>
+#include"Jugador.h"
 
 int main(){
-	//HOLAAAAAAAAAllAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-	std::cout << "Hooolaaa";
+
+	Jugador Santi;
+	Santi.IniciarPartida();
+	Santi.JugarUnTurno();
+
 	return 0;
 }
+
+
+
