@@ -2,14 +2,14 @@
 
 Tablero::Tablero(unsigned int cantidadDeFilas, unsigned int cantidadDeColumnas){
 
-	this->matriz = new Parcela*[cantidadDeColumnas];
+	this->matriz = new Parcela**[cantidadDeColumnas];
 	for(unsigned int i = 0; i<cantidadDeColumnas; i++){
-		this->matriz[i] = new Parcela*();
+		this->matriz[i] = new Parcela**();
 	}
 
 	for(unsigned int i = 0; i<cantidadDeColumnas; i++){
 		for(unsigned int j = 0; i<cantidadDeFilas; i++){
-			this->matriz[i][j] = new Parcela;
+			this->matriz[i][j] = new Parcela*();
 		}
 	}
 	this->cantidadDeFilas = cantidadDeFilas;

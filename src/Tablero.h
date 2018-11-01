@@ -8,7 +8,7 @@ class Tablero {
 
 	private:
 
-		Parcela** matriz;
+		Parcela*** matriz;
 		unsigned int cantidadDeFilas;
 		unsigned int cantidadDeColumnas;
 
