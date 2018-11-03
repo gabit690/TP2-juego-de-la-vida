@@ -77,7 +77,4 @@ void Informe::actualizaCambios(){
 bool Informe::juegoCongelado(){
 	return (this->turnosSeguidosSinCambios==2);
 }
-Informe::~Informe() {
-	// No hace falta ya que no se pidieron recursos.
-}
 

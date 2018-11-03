@@ -3,6 +3,7 @@
 
 #include "EasyBMP.h"
 #include "Color.h"
+#include <string>
 
 class MapaDeBits {
 
@@ -20,14 +21,14 @@ class MapaDeBits {
 		 */
 		MapaDeBits(unsigned int ancho, unsigned int alto);
 
-		/* POST: asigna al pixel ubicado en la (fila, columna) el color indicado.
+		/* POST: asigna al pixel ubicado en (pixelX, pixelY) el color indicado.
 		 */
 
-		void asignar(unsigned int fila, unsigned int columna, Color* nuevoColor);
+		void asignar(unsigned int pixelX, unsigned int pixelY, Color* nuevoColor);
 
-		/* POST: escribe la imagen con nombre 'nombreDeArchivo[version].bmp"
+		/* POST: escribe la imagen con nombre 'nombreDeArchivo.bmp"
 	 	 */
-		void escribir(std::string nombreDeArchivo, unsigned int version);
+		void escribir(std::string nombreDeArchivo);
 
 		/* POST: libera los recursos utilizados.
 		 */

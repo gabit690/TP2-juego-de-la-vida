@@ -1,28 +1,29 @@
 #include "Energia.h"
 
-		Energia::Energia(float factorNacimientoParcela, float factorMuerteParcela){
-			this->energiaTotal = 0;
-			this->factorNacimiento = factorNacimientoParcela;
-			this->factorMuerte = factorMuerteParcela;
-		}
+Energia::Energia(){
+	this->energiaTotal = 0;
+}
 
-		float Energia::nacimientoCelular(){
-			return (ENERGIA*(this->factorNacimiento));
-		}
+void Energia::sumarEnergia(float valor){
+	float nuevaEnergia = this->energiaTotal+valor;
+	if(nuevaEnergia>100){
+		this->energiaTotal = 100;
+	}
+	else{
+		this->energiaTotal = nuevaEnergia;
+	}
+}
 
-		float Energia::muerteCelular(){
-			return (ENERGIA*(this->factorMuerte));
-		}
+void Energia::restarEnergia(float valor){
+	float nuevaEnergia = this->energiaTotal-valor;
+	if(nuevaEnergia<0){
+		this->energiaTotal = 0;
+	}
+	else{
+		this->energiaTotal = nuevaEnergia;
+	}
+}
 
-		void Energia::sumarEnergia(){
-			(this->energiaTotal) += nacimientoCelular();
-		}
-
-		void Energia::restarEnergia(){
-			if(this->energiaTotal == muerteCelular()){
-				this->energiaTotal = SIN_ENERGIA;
-			}
-			else{
-				(this->energiaTotal) -= muerteCelular();
-			}
-		}
+void Energia::reiniciarEnergia(){
+	this->energiaTotal = 0;
+}

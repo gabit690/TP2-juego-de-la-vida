@@ -5,6 +5,7 @@
  *      Author: santicouce
  */
 
+/*
 #include "Tablero.h"
 #include "Informe.h"
 #include "Parcela.h"
@@ -90,6 +91,6 @@ int Jugador::getCantidadAdyacentesVivos(Tablero* tablero, int columna,int fila, 
 	}
 	return celulasVivas;
 }
-
+*/
 
 

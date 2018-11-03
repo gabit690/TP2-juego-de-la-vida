@@ -11,7 +11,7 @@
 class Jugador{
 private:
 	Informe InformeDeLaPartida;
-	Datos DatosIniciales;
+//	Datos DatosIniciales;
 	Tablero tablero;
 
 public:

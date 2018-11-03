@@ -1,49 +1,72 @@
 #include <string>
-#include "Color.h"
-#include "Energia.h"
 #include "Celula.h"
 using namespace std;
 
+#import "Celula.h"
 
-Celula::Celula(bool estadoInicial,Energia energiaInicial,Color colorInicial){
-	energia=energiaInicial;
-	estadoActual=estadoInicial;
-	color=colorInicial;
+Celula::Celula(){
+	this->condicion = MUERTA;
+	this->color = new Color(255, 255, 255);
+	this->energia = new Energia();
 }
 
-void Celula::cambiarEstadoDeLaCelula(){
-	if (estadoActual=="viva"){
-		estadoActual="muerta";
-	}else{
-		estadoActual="viva";
+void Celula::reanimarCelula(){
+	this->condicion = PORVIVIR;
+}
+
+void Celula::revivirCelula(){
+	this->condicion = VIVA;
+}
+
+void Celula::infectarCelula(){
+	this->condicion = PORMORIR;
+}
+
+void Celula::matarCelula(){
+	this->condicion = MUERTA;
+}
+
+bool Celula::estaMuerta(){
+	return (this->condicion==MUERTA);
+}
+
+bool Celula::estaPorRevivir(){
+	return (this->condicion==PORVIVIR);
+}
+
+bool Celula::estaViva(){
+	return (this->condicion==VIVA);
+}
+
+bool Celula::estaPorMorir(){
+	return (this->condicion==PORMORIR);
+}
+
+void Celula::cambiarColorDeLaCelula(ebmpBYTE rojo, ebmpBYTE verde, ebmpBYTE azul){
+	this->color->asignarRojo(rojo);
+	this->color->asignarVerde(verde);
+	this->color->asignarAzul(azul);
+}
+
+void Celula::cambiarNuevaEnergia(unsigned int nuevaEnergia){
+	//Cambiar nivel de energia
+}
+
+
+Color* Celula::getColor(){
+	return this->color;
+}
+void Celula::reiniciarCelula(){
+	if(this->condicion==VIVA){
+		this->condicion = MUERTA;
 	}
+	// reiniciar energia
+	this->color->asignarRojo(255);
+	this->color->asignarVerde(255);
+	this->color->asignarAzul(255);
 }
 
-void Celula::cambiarColorDeLaCelula(Color nuevoColor){
-	color=nuevoColor;
+Celula::~Celula(){
+	delete this->color;
+	delete this->energia;
 }
-
-void Celula::cambiarEnergia(Energia nuevaEnergia){
-	energia=nuevaEnergia;
-}
-void Celula::setProximoEstado(string estado){
-	this->proximoEstado=estado;
-}
-void Celula::setEstadoActual(string estado){
-	this->estadoActual=estado;
-}
-string Celula::getEstadoActual(){
-	return estadoActual;
-}
-string Celula::getProximoEstado(){
-	return proximoEstado;
-}
-
-Celula* Celula::crearCopiaDeLaCelula(Celula* celulaACopiar){
-	Celula* nuevaCopia;
-	nuevaCopia->color=celulaACopiar->color;
-	nuevaCopia->energia=celulaACopiar->energia;
-	nuevaCopia->estadoActual=celulaACopiar->estadoActual;
-	return nuevaCopia;
-}
-Celula::~Celula();

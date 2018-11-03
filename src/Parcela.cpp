@@ -6,43 +6,46 @@
  */
 
 #include "Parcela.h"
-#include "Portal.h"
-#include "Celula.h"
 
-Parcela::Parcela(Celula celula, Portal portal, Color color) {
-	this->celula = celula;
-	this->portal = portal;
-	this->color = color;
+
+Parcela::Parcela(){
+	this->celula = new Celula();
+	this->portal = NULL;
+	this->color = new Color(255, 255, 255);
 
 }
 
-void Parcela::cambiarColor(Color nuevoColor){
-	this->color = nuevoColor;
+void Parcela::setearColorDeParcela(ebmpBYTE rojo, ebmpBYTE verde, ebmpBYTE azul){
+	this->color->asignarRojo(rojo);
+	this->color->asignarVerde(verde);
+	this->color->asignarAzul(azul);
 }
 
-void Parcela::cambiarPortal(Portal nuevoPortal){
-	this->portal = nuevoPortal;
+void Parcela::setPortal(Portal* unPortal){
+	this->portal = unPortal;
 }
 
-Color Parcela::obtenerColor(){
-	return color;
+Color* Parcela::obtenerColor(){
+	return this->color;
 }
 
-Celula Parcela::obtenerCelula(){
-	return celula;
+Celula* Parcela::obtenerCelula(){
+	return this->celula;
 }
 
-Portal Parcela::obtenerPortal(){
-	return Portal;
+Portal* Parcela::obtenerPortal(){
+	return this->portal;
 }
 
 bool Parcela::contieneCelulaViva(){
-	if (this->celula->estado){
-		return true;
-	}
-	return false;
+	return (this->celula->estaViva());
 }
 
 Parcela::~Parcela() {
-	// TODO Auto-generated destructor stub
+	delete this->celula;
+	delete this->color;
+	if(this->portal!=NULL){
+		delete this->portal;
+	}
 }
+

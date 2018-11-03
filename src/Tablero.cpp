@@ -1,23 +1,27 @@
 #include "Tablero.h"
-#include "Parcela.h"
 
-Tablero::Tablero(int cantidadDeFilas, int cantidadDeColumnas){
+Tablero::Tablero(std::string  unNombre, unsigned int cantidadDeFilas, unsigned int cantidadDeColumnas){
 
+	this->nombre = unNombre;
+	//Creaccion del tablero con punteros a parcelas
+	this->casilleros = new Parcela**[cantidadDeColumnas];
+	for(unsigned int i = 0; i<cantidadDeColumnas; i++){
+		this->casilleros[i] = new Parcela*[cantidadDeFilas];
+	}
+
+	//Craeacion y asignacion de las parcelas del tablero.
+	for(unsigned int i = 0; i<cantidadDeColumnas; i++){
+		for(unsigned int j = 0; j<cantidadDeFilas; j++){
+			Parcela* parcelaNueva = new Parcela();
+			this->casilleros[i][j] = parcelaNueva;
+		}
+	}
 	this->cantidadDeFilas = cantidadDeFilas;
 	this->cantidadDeColumnas = cantidadDeColumnas;
-	this->tablero = new Parcela[cantidadDeFilas];
-	for (int i=0;i<cantidadDeFilas;i++){
-		this->tablero[i]=new Parcela[cantidadDeColumnas];
-	}
-}
-void Tablero::cargarParcelaAlTablero(Parcela parcela, int x,int y){
-
-	this->tablero[x][y]=parcela;
-
 }
 
-Parcela Tablero::obtenerParcela(unsigned int numeroDeFila, unsigned int numeroDeColumna){
-	return this->matriz[numeroDeColumna-1][numeroDeFila-1];
+Parcela* Tablero::obtenerParcela(unsigned int numeroDeColumna, unsigned numeroDeFila){
+	return this->casilleros[numeroDeColumna-1][numeroDeFila-1];
 }
 
 unsigned int Tablero::contarColumnas(){
@@ -30,21 +34,29 @@ unsigned int Tablero::contarFilas(){
 	return this->cantidadDeFilas;
 }
 
-Lista<Parcela>* Tablero::obtenerVecinas(unsigned int numeroDeFila, unsigned int numeroDeColumna){
+std::string Tablero::obtenerNombre(){
+	return this->nombre;
+}
+
+Lista<Parcela*>* Tablero::obtenerVecinas(unsigned int numeroDeFila, unsigned int numeroDeColumna){
 	// Codigo para obtener las filas vecinas y luego verificar su estado
 	return NULL;
 }
 
 Tablero::~Tablero() {
+	//Elimino las parcelas
 	for(unsigned int i = 0; i<cantidadDeColumnas; i++){
-		for(unsigned int j = 0; i<cantidadDeFilas; i++){
-			delete this->matriz[i][j];
+		for(unsigned int j = 0; j<cantidadDeFilas; j++){
+			delete this->casilleros[i][j];
 		}
 	}
 
-	for(unsigned int i = 0; i<cantidadDeColumnas; i++){
-		delete this->matriz[i];
+	//Elimino las filas
+	for(unsigned int i = 0; i<cantidadDeFilas; i++){
+		delete[] this->casilleros[i];
 	}
 
-	delete[] this->matriz;
+	//Elimino las colunas
+	delete[] this->casilleros;
+
 }

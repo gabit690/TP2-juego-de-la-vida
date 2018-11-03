@@ -84,9 +84,6 @@ public:
 	//POST: Devuelve true si el juego no se modifico en dos turnos consecutivos.
 	bool juegoCongelado();
 
-	//PRE: .
-	//POST: No produce modificaciones.
-	~Informe();
 };
 
 #endif /* INFORME_H_ */

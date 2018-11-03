@@ -12,28 +12,59 @@
 #define PARCELA_H_
 
 class Parcela {
+
 private:
-	Color color;
-	Celula celula;
-	Portal portal;
+
+	Color* color;
+	Celula* celula;
+	Portal* portal;
 
 public:
-	Parcela(Color color, Celula celula, Portal portal);
-	virtual ~Parcela();
 
-	void Parcela::cambiarColor(Color nuevoColor);
+	/* PRE: -.
+	 * POST: una parcela que contiene una celula muerta, ningun portal
+	 * y tiene como color blanco por defecto.
+	 */
+	Parcela();
 
-	void Parcela::cambiarPortal(Portal nuevoPortal);
+	/* PRE: rojo, verde y azul estan en el intervalo [0, 255].
+	 * POST: se cambiar el color de la parcela.
+	 */
+	void setearColorDeParcela(ebmpBYTE rojo, ebmpBYTE verde, ebmpBYTE azul);
 
-	Color Parcela::obtenerColor();
+	/* pre: unPortal es un dato de tipo portal inicializado como ACTIVO, PASIVO
+	 * o NORMAL.
+	 * post: asigna a la parcela el portal unPortal.
+	 */
+	void setPortal(Portal* unPortal);
 
-	Celula Parcela::obtenerCelula();
+	/* PRE: rojo, verde y azul estan en el intervalo [0, 255].
+	 * POST: asigna el nuevo color formado por la combinacion de rojo, verde
+	 * y azul.
+	 */
+	Color* obtenerColor();
 
-	Portal Parcela::obtenerPortal();
+	/* PRE: rojo, verde y azul estan en el intervalo [0, 255].
+	 * POST: asigna el nuevo color formado por la combinacion de rojo, verde
+	 * y azul.
+	 */
+	Celula* obtenerCelula();
 
-	bool Parcela::contieneCelulaViva();
+	/* PRE: rojo, verde y azul estan en el intervalo [0, 255].
+	 * POST: asigna el nuevo color formado por la combinacion de rojo, verde
+	 * y azul.
+	 */
+	Portal* obtenerPortal();
 
+	/* PRE: -.
+	 * POST: indica si la celula contenida en la parcela se encuentra viva.
+	 */
+	bool contieneCelulaViva();
 
+	/* PRE: -.
+	 * POST: libera la memoria solicitada.
+	 */
+	~Parcela();
 };
 
 #endif /* PARCELA_H_ */

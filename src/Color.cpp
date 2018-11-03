@@ -58,6 +58,13 @@ void Color::asignarColorAleatorio(){
 	this->colores->Blue = (unsigned char)(std::rand() % 255);
 }
 
+bool Color::sonLosMismosColores(Color* unColor){
+	bool sonIguales = (this->colores->Red==unColor->obtenerRojo())&&
+			(this->colores->Green==unColor->obtenerVerde())&&
+			(this->colores->Blue==unColor->obtenerAzul());
+	return sonIguales;
+}
+
 Color::~Color(){
 
 	delete this->colores;

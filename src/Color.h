@@ -50,6 +50,11 @@ class Color {
 		/* POST: asigna a sus colores un color aleatorio */
 		void asignarColorAleatorio();
 
+		/* Pre: unColor es un color de la escala RGB;
+		 * Post: indica si se trata de los mismos colores
+		 */
+		bool sonLosMismosColores(Color* unColor);
+
 		/* POST: libera los recursos utilizados */
 		~Color();
 
