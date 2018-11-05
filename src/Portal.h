@@ -9,6 +9,7 @@
 #define PORTAL_H_
 
 #include <string>
+#include "Parcela.h"
 
 /*
  * Clasificacion de los diferentes tipos de portal que podran modificar las
@@ -29,27 +30,19 @@ enum TipoDePortal{
  * en las cuales podra modificar el estado de la celula
  */
 class Portal{
-	public:
+	private:
 		TipoDePortal tipo;
 		std::string taberoOrigen;
 		std::string taberoDestino;
+		Parcela* parcelaOrigen;
+		Parcela* parcelaDestino;
 
-	private:
+	public:
 		/* Pre: -.
 		 * Post: un portal que conecta los tableros nombreTableroOrigen y nombreTableroDestino.
-		 * Esta seteado como un portal del tipo NORMAL
 		 */
-		Portal(std::string nombreTableroOrigen, std::string nombreTableroDestino);
-
-		/* Pre: -.
-		 * Post: cambia el tipo de portal a ACTIVO.
-		 */
-		void cambiarAportalActivo();
-
-		/* Pre: -.
-		 * Post: cambia el tipo de portal a PASIVO.
-		 */
-		void cambiarAportalPasivo();
+		Portal(std::string nombreTableroOrigen, std::string nombreTableroDestino,
+				Parcela* origen, Parcela* destino, TipoDePortal tipo);
 
 		/* Pre: -.
 		 * Post: indica si el portal es del tipo ACTIVO.
@@ -67,14 +60,24 @@ class Portal{
 		bool esPortalPasivo();
 
 		/* Pre: -.
-		 * Post: obtine el nombre del tablero origen que conecta.
+		 * Post: obtiene el nombre del tablero origen que conecta.
 		 */
 		std::string getNombreTableroOrigen();
 
 		/* Pre: -.
-		 * Post: obtine el nombre del tablero destino que conecta.
+		 * Post: obtiene el nombre del tablero destino que conecta.
 		 */
 		std::string getNombreTableroDestino();
+
+		/* Pre: -.
+		 * Post: obtiene la parcela origen del portal.
+		 */
+		Parcela* getParcelaOrigen();
+
+		/* Pre: -.
+		 * Post: obtiene la parcela destino del portal.
+		 */
+		Parcela* getParcelaDestino();
 };
 
 

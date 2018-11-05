@@ -2,7 +2,6 @@
 #define COLOR_H_
 
 #include "EasyBMP.h"
-#include <cstdlib>
 
 class Color {
 
@@ -12,48 +11,45 @@ class Color {
 
 	public:
 
-		/* PRE: rojo, verde y azul son enteros entre 0 y 255, siendo
-		 * 		0 ausencia de color y 255 color completo.
+		/* PRE: rojo, verde y azul son enteros entre 0 y 255.
+		 * Post: genera un color del modelo RGB.
 		 */
 		Color(ebmpBYTE rojo, ebmpBYTE verde, ebmpBYTE azul);
 
-		/* POST: crea un color en base a otro existente. */
-		Color(Color* otroColor);
-
-		/* POST: devuelve la cantidad de rojo*/
+		/* Pre: -.
+		 * POST: devuelve la cantidad de rojo.
+		 */
 		ebmpBYTE obtenerRojo();
 
-		/* POST: devuelve la cantidad de verde */
+		/* Pre: -.
+		 * POST: devuelve la cantidad de verde.
+		 */
 		ebmpBYTE obtenerVerde();
 
-		/* POST: devuelve la cantida de azul */
+		/* Pre: -.
+		 * POST: devuelve la cantidad de azul.
+		 */
 		ebmpBYTE obtenerAzul();
 
 		/* PRE: 'nuevoRojo' es un entero entre 0 y 255.
-		 * POST: asigna el 'nuevoRojo' al color de la ficha.
+		 * POST: asigna una nueva cantidad de rojo.
 		 */
 		void asignarRojo(ebmpBYTE nuevoRojo);
 
 		/* PRE: 'nuevoVerde' es un entero entre 0 y 255.
-		 * POST: asigna el 'nuevoVerde' al color de la ficha.
+		 * POST: asigna una nueva cantidad de verde.
 		 */
 		void asignarVerde(ebmpBYTE nuevoVerde);
 
 		/* PRE: 'nuevoAzul' es un entero entre 0 y 255.
-		 * POST: asigna el 'nuevoAzul' al color de la ficha.
+		 * POST: asigna una nueva cantidad de azul.
 		 */
 		void asignarAzul(ebmpBYTE nuevoAzul);
 
-		/* POST: devuelve un RGBApixel con los colores asociados */
-		RGBApixel obtenerPixel();
-
-		/* POST: asigna a sus colores un color aleatorio */
-		void asignarColorAleatorio();
-
-		/* Pre: unColor es un color de la escala RGB;
-		 * Post: indica si se trata de los mismos colores
+		/* Pre: -.
+		 * POST: devuelve un RGBApixel con los colores asociados.
 		 */
-		bool sonLosMismosColores(Color* unColor);
+		RGBApixel obtenerPixel();
 
 		/* POST: libera los recursos utilizados */
 		~Color();

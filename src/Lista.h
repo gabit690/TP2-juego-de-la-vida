@@ -120,7 +120,7 @@ template<class T> class Lista {
         /* pre: 'dato' es un elemento de la lista.
          * post: devuelve la posicion que ocupa 'dato' en la lista.
          */
-	unsigned int buscarPosicionDelElemento(T dato);
+        unsigned int buscarPosicionDelElemento(T dato);
 
         /*
          * post: libera los recursos asociados a la Lista.

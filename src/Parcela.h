@@ -13,58 +13,66 @@
 
 class Parcela {
 
-private:
+	private:
 
-	Color* color;
-	Celula* celula;
-	Portal* portal;
+		Color* color;
+		Celula* celula;
+		float tasaDeNatalidad;
+		float tasaDeMortalidad;
 
-public:
+	public:
 
-	/* PRE: -.
-	 * POST: una parcela que contiene una celula muerta, ningun portal
-	 * y tiene como color blanco por defecto.
-	 */
-	Parcela();
+		/* PRE: -.
+		 * POST: una parcela que contiene una celula muerta, ningun portal
+		 * y tiene como color blanco por defecto.
+		 */
+		Parcela();
 
-	/* PRE: rojo, verde y azul estan en el intervalo [0, 255].
-	 * POST: se cambiar el color de la parcela.
-	 */
-	void setearColorDeParcela(ebmpBYTE rojo, ebmpBYTE verde, ebmpBYTE azul);
+		/* PRE: rojo, verde y azul estan en el intervalo [0, 255].
+		 * POST: se cambia el color de la parcela.
+		 */
+		void setearColorDeParcela(ebmpBYTE rojo, ebmpBYTE verde, ebmpBYTE azul);
 
-	/* pre: unPortal es un dato de tipo portal inicializado como ACTIVO, PASIVO
-	 * o NORMAL.
-	 * post: asigna a la parcela el portal unPortal.
-	 */
-	void setPortal(Portal* unPortal);
+		/* PRE: -.
+		 * POST: obtiene el color de la parcela.
+		 */
+		Color* obtenerColor();
 
-	/* PRE: rojo, verde y azul estan en el intervalo [0, 255].
-	 * POST: asigna el nuevo color formado por la combinacion de rojo, verde
-	 * y azul.
-	 */
-	Color* obtenerColor();
+		/* PRE: -.
+		 * POST: obtiene la celula dentro de la parcela.
+		 * y azul.
+		 */
+		Celula* obtenerCelula();
 
-	/* PRE: rojo, verde y azul estan en el intervalo [0, 255].
-	 * POST: asigna el nuevo color formado por la combinacion de rojo, verde
-	 * y azul.
-	 */
-	Celula* obtenerCelula();
+		/* PRE: -.
+		 * POST: indica si la celula contenida en la parcela se encuentra viva.
+		 */
+		bool contieneCelulaViva();
 
-	/* PRE: rojo, verde y azul estan en el intervalo [0, 255].
-	 * POST: asigna el nuevo color formado por la combinacion de rojo, verde
-	 * y azul.
-	 */
-	Portal* obtenerPortal();
+		/* PRE: tasaDeNatalidad un entero del intervalo [0, 100].
+		 * POST: establece la tasa de natalidad de la parcela.
+		 */
+		void setTasaDeNatalidad(float tasaDeNatalidad);
 
-	/* PRE: -.
-	 * POST: indica si la celula contenida en la parcela se encuentra viva.
-	 */
-	bool contieneCelulaViva();
+		/* PRE: -.
+		 * POST: obtiene la tasa de natalidad.
+		 */
+		float getTasaDeNatalidad();
 
-	/* PRE: -.
-	 * POST: libera la memoria solicitada.
-	 */
-	~Parcela();
+		/* PRE: tasaDeMortalidad un entero del intervalo [0, 100].
+		 * POST: establece la tasa de mortalidad de la parcela.
+		 */
+		void setTasaDeMortalidad(float tasaDeMortalidad);
+
+		/* PRE: -.
+		 * POST: obtiene la tasa de mortalidad.
+		 */
+		float getTasaDeMortalidad();
+
+		/* PRE: -.
+		 * POST: libera la memoria solicitada.
+		 */
+		~Parcela();
 };
 
 #endif /* PARCELA_H_ */

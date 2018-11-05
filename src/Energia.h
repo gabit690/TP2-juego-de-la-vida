@@ -10,7 +10,9 @@ const int SIN_ENERGIA = 0;
  */
 
 class Energia{
+
 	private:
+
 		float energiaTotal;
 
 	public:
@@ -29,11 +31,6 @@ class Energia{
 		 * post: disminuye el nivel de energia segun valor pero no baja de la cantidad 0.
 		 */
 		void restarEnergia(float valor);
-
-		/* Pre: -.
-		 * post:  pone el nivel de energia en 0.
-		 */
-		void reiniciarEnergia();
 };
 
 #endif /* ENERGIA_H_ */

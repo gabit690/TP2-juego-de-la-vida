@@ -1,8 +1,4 @@
-#include <string>
 #include "Celula.h"
-using namespace std;
-
-#import "Celula.h"
 
 Celula::Celula(){
 	this->condicion = MUERTA;
@@ -48,22 +44,16 @@ void Celula::cambiarColorDeLaCelula(ebmpBYTE rojo, ebmpBYTE verde, ebmpBYTE azul
 	this->color->asignarAzul(azul);
 }
 
-void Celula::cambiarNuevaEnergia(unsigned int nuevaEnergia){
-	//Cambiar nivel de energia
+void Celula::aumentarEnergia(float nuevaEnergia){
+	this->energia->sumarEnergia(nuevaEnergia);
 }
 
+void Celula::reducirEnergia(float nuevaEnergia){
+	this->energia->restarEnergia(nuevaEnergia);
+}
 
 Color* Celula::getColor(){
 	return this->color;
-}
-void Celula::reiniciarCelula(){
-	if(this->condicion==VIVA){
-		this->condicion = MUERTA;
-	}
-	// reiniciar energia
-	this->color->asignarRojo(255);
-	this->color->asignarVerde(255);
-	this->color->asignarAzul(255);
 }
 
 Celula::~Celula(){

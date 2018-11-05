@@ -9,38 +9,22 @@
 #include <iostream>
 using namespace std;
 
-void mostrarBienvenida(){
+Interfaz::Interfaz(){
+
+}
+
+void Interfaz::mostrarBienvenida(){
 	cout << "			";
 	cout << "Bienvenido al 'Juego de la vida 2.0'." << endl << endl;
 }
 
-void pedirEleccionDeUnaFila(int &valorIngresado){
-	cout << "Ingrese el numero de FILA donde quiere una celula viva o ingrese 0 para finalizar." << endl;
-	cout << "Su respuesta: ";
-	cin >> valorIngresado;
-	cout << endl;
-}
-
-void pedirEleccionDeUnaColumna(int &valorIngresado){
-	cout << "Ingrese el numero de COLUMNA donde quiere una celula viva o ingrese 0 para finalizar." << endl;
-	cout << "Su respuesta: ";
-	cin >> valorIngresado;
-	cout << endl;
-}
-
-void mostrarErrorDatoInvalido(){
-	cout << "El dato ingresado no es valido. ";
+void Interfaz::mostrarErrorDatoInvalido(){
+	cout << "El dato ingresado no es valido (igual que Michetti).";
 	cin.get();
 	cout << endl << endl;
 }
 
-void mostrarErrorPosicionRepetida(){
-	cout << "Ese casillero ya tiene una celula viva. ";
-	cin.get();
-	cout << endl;
-}
-
-void mostrarMenuDeJuego(){
+void Interfaz::mostrarMenuDeJuego(){
 	cout << "          ";
 	cout << "MENU DE JUEGO." << endl;
 	cout << "1. Ejecutar una cantidad de turnos a elegir." << endl;
@@ -48,23 +32,22 @@ void mostrarMenuDeJuego(){
 	cout << "3. Terminar." << endl << endl;
 }
 
-void mostrarQueElJuegoSeCongelo(){
+void Interfaz::mostrarQueElJuegoSeCongelo(){
 	cout << "El juego se ha congelado, es decir, no se modifico el tablero en dos turnos consecutivos";
-	cin.get();
 	cout << endl << endl;
 }
 
-void pedirEleccionDelMenuDeJuego(){
+void Interfaz::pedirEleccionDelMenuDeJuego(){
 	cout << ">>> Elija una de las acciones." << endl;
 	cout << "Su respuesta: ";
 }
 
-void pedirUnaCantidadDeTurnos(){
+void Interfaz::pedirUnaCantidadDeTurnos(){
 		cout << "Ingrese cuantos turnos quiere realizar." << endl;
 		cout << "Su respuesta: ";
 }
 
-void mostrarInformesDelJuego(Informe* informes){
+void Interfaz::mostrarInformesDelJuego(Informe* informes){
 	cout << "INFORMES DEL TURNO NUMERO " << informes->getTurno() << endl;
 	cout << "Celulas vivas: " << informes->getCelulasVivas() << endl;
 	cout << "Nacimientos: " << informes->getNacimientos() << endl;
@@ -75,12 +58,12 @@ void mostrarInformesDelJuego(Informe* informes){
 	cout << "Promedio de muertes totales: " << promedioDeMuertes << endl << endl;
 }
 
-void mostrarCantidadDeCelulasVivas(Informe* informes){
+void Interfaz::mostrarCantidadDeCelulasVivas(Informe* informes){
 	cout << "Celulas vivas: " << informes->getCelulasVivas()<< endl;
 	cout << endl;
 }
 
-void mostrarFinalizacionDelJuego(){
+void Interfaz::mostrarFinalizacionDelJuego(){
 	cout << "          ";
 	cout << "Programa finalizado. Ciao";
 	cin.get();

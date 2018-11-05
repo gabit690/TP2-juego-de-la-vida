@@ -63,22 +63,22 @@ class Celula{
 		void matarCelula();
 
 		/* PRE: -.
-		 * POST: Devuelve true si la celula esta muerta.
+		 * POST: Indica si la celula esta muerta.
 		 */
 		bool estaMuerta();
 
 		/* PRE: -.
-		 * POST: Devuelve true si la celula esta por revivir.
+		 * POST: Indica si la celula esta por revivir.
 		 */
 		bool estaPorRevivir();
 
 		/* PRE: -.
-		 * POST: Devuelve true si la celula esta viva.
+		 * POST: Indica si la celula esta viva.
 		 */
 		bool estaViva();
 
 		/* PRE: -.
-		 * POST: Devuelve true si la celula esta por morir.
+		 * POST: Indica si la celula esta por morir.
 		 */
 		bool estaPorMorir();
 
@@ -88,20 +88,20 @@ class Celula{
 		 */
 		void cambiarColorDeLaCelula(ebmpBYTE rojo, ebmpBYTE verde, ebmpBYTE azul);
 
-		/* PRE: nuevaEnergia esta en el intervalo [0, 100].
-		 * POST: setea el nuevo nivel de energia.
+		/* PRE: nuevaEnergia >0 .
+		 * POST: aumenta el nivel de energia segun nuevaEnergia pero nunca mas de 100.
 		 */
-		void cambiarNuevaEnergia(unsigned int nuevaEnergia);
+		void aumentarEnergia(float nuevaEnergia);
+
+		/* PRE: nuevaEnergia >0 .
+		 * POST: reduce el nivel de energia segun nuevaEnergia pero nunca menos de 0.
+		 */
+		void reducirEnergia(float nuevaEnergia);
 
 		/* PRE: -.
-		 * POST: Devuelve de color de la celula.
+		 * POST: Devuelve el color de la celula.
 		 */
 		Color* getColor();
-
-		/* PRE: La condicion de la celula es VIVA.
-		 * POST: Se reinicia una celula con la condicion MUERTA.
-		 */
-		void reiniciarCelula();
 
 		/* PRE: -.
 		 * POST: Libera la memoria pedida.

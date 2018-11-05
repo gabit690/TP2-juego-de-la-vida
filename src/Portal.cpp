@@ -7,18 +7,14 @@
 
 #include "Portal.h"
 
-Portal::Portal(std::string nombreTableroOrigen, std::string nombreTableroDestino){
-	this->tipo = NORMAL;
+Portal::Portal(std::string nombreTableroOrigen, std::string nombreTableroDestino,
+				Parcela* origen, Parcela* destino, TipoDePortal tipo){
+
 	this->taberoOrigen = nombreTableroOrigen;
 	this->taberoDestino = nombreTableroDestino;
-}
-
-void Portal::cambiarAportalActivo(){
-	this->tipo = ACTIVO;
-}
-
-void Portal::cambiarAportalPasivo(){
-	this->tipo = PASIVO;
+	this->parcelaOrigen = origen;
+	this->parcelaDestino = destino;
+	this->tipo = tipo;
 }
 
 bool Portal::esPortalActivo(){
@@ -39,4 +35,12 @@ std::string Portal::getNombreTableroOrigen(){
 
 std::string Portal::getNombreTableroDestino(){
 	return this->taberoDestino;
+}
+
+Parcela* Portal::getParcelaOrigen(){
+	return this->parcelaOrigen;
+}
+
+Parcela* Portal::getParcelaDestino(){
+	return this->parcelaDestino;
 }

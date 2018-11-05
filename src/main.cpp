@@ -4,28 +4,13 @@
  *  Created on: 1 nov. 2018
  *      Author: santicouce
  */
-#include "Dibujante.h"
-#include <iostream>
+
+#include "JuegoDeLaVida.h"
 
 int main(){
-
-	Dibujante* pinkcasso;
-	pinkcasso = new Dibujante();
-	Tablero* elTablero;
-	elTablero = new Tablero("Principal", 3, 3);
-	Lista<Tablero*>* cuaderno;
-	cuaderno = new Lista<Tablero*>();
-	cuaderno->agregar(elTablero);
-
-	pinkcasso->dibujarUnTablero(elTablero, 30);
-
-
-	delete pinkcasso;
-	delete cuaderno;
-	delete elTablero;
-
+	JuegoDeLaVida* elJuego;
+	elJuego = new JuegoDeLaVida();
+	elJuego->jugar();
+	delete elJuego;
 	return 0;
 }
-
-
-

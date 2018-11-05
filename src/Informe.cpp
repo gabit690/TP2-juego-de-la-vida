@@ -74,6 +74,25 @@ void Informe::actualizaCambios(){
 	}
 }
 
+void Informe::reiniciarInformes(){
+	this->turno = 0;
+	this->celulasVivas = 0;
+	this->nacimientos = 0;
+	this->nacimientosTotales = 0;
+	this->muertes = 0;
+	this->muertesTotales = 0;
+	this->turnosSeguidosSinCambios = 0;
+}
+
+void Informe::verificarCambios(){
+	bool hayCambios = (this->nacimientos!=0)||(this->muertes!=0);
+	if(!hayCambios){
+		this->turnosSeguidosSinCambios++;
+	}else{
+		this->turnosSeguidosSinCambios = 0;
+	}
+}
+
 bool Informe::juegoCongelado(){
 	return (this->turnosSeguidosSinCambios==2);
 }
