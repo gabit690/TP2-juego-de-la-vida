@@ -31,7 +31,12 @@ class Enfermero {
 		/* PRE: Existen tableros para ser analizados.
 		 * POST: modifica definitivamente el estado de las celulas de los tableros.
 		 */
-		void actualizarCelulas(Lista<Tablero*>* losTableros, Informe* losInformes);
+		void actualizarCelulas(Lista<Tablero*>* losTableros, Lista<Portal*>* losPortales, Informe* losInformes);
+
+		/* PRE: Existen tableros para ser analizados.
+		 * POST: modifica el color de las celulas en los tableros con el promedio de sus vecinas
+		 */
+		void establecerColoresDeLasCelulas(Lista<Tablero*>* losTableros, Lista<Portal*>* losPortales);
 
 		/* PRE: unTablero existente en el juego.
 		 * POST: modifica definitivamente el estado de las celulas de un tablero
@@ -71,6 +76,11 @@ class Enfermero {
 		 * POST: copia el estado de celulaModelo a celulaAmodificar.
 		 */
 		void copiarEstadoEntreCelulas(Celula* celulaModelo, Celula* celulaAmodificar);
+
+		/*PRE: unTablero es un tablero del juego.
+		 * POST: le asigna un color a las celulas que naceran el siguiente turno.
+		 */
+		void setearColoresEnUnTablero(Tablero* unTablero);
 
 		/* PRE: unTablero existente en el juego, columna y fila representa una posicion dentro del tablero y
 		 * unaCelula es la celula ubicada en dicha posicion.

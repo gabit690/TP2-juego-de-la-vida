@@ -14,12 +14,6 @@ void Enfermero::evaluarCelulas(Lista<Tablero*>* losTableros, Lista<Portal*>* los
 		unTablero = losTableros->obtenerCursor();
 		evaluarUnTablero(unTablero);
 	}
-	losPortales->iniciarCursor();
-	while(losPortales->avanzarCursor()){
-		Portal* unPortal;
-		unPortal = losPortales->obtenerCursor();
-		aplicarEfectoDelPortal(unPortal);
-	}
 }
 
 void Enfermero::evaluarUnTablero(Tablero* unTablero){
@@ -115,30 +109,36 @@ void Enfermero::aplicarEfectoNormal(Celula* celulaOrigen, Celula* celulaDestino)
 }
 
 void Enfermero::aplicarEfectoPasivo(Celula* celulaOrigen, Celula* celulaDestino){
-	bool hayTransicionEnOrigen = (celulaOrigen->estaPorRevivir())||(celulaOrigen->estaPorMorir());
-	if(hayTransicionEnOrigen){
-		copiarEstadoEntreCelulas(celulaOrigen, celulaDestino);
+	if(celulaOrigen->estaPorRevivir()){
+		if(celulaDestino->estaPorMorir()||celulaDestino->estaMuerta()){
+			celulaDestino->reanimarCelula();
+		}
 	}
 }
 
 
 void Enfermero::copiarEstadoEntreCelulas(Celula* celulaModelo, Celula* celulaAmodificar){
 	if(celulaModelo->estaPorRevivir()){
-		celulaAmodificar->reanimarCelula();
-		Color* unColor = celulaAmodificar->getColor();
-		celulaAmodificar->cambiarColorDeLaCelula(unColor->obtenerRojo(), unColor->obtenerVerde(), unColor->obtenerAzul());
+		if(celulaAmodificar->estaPorMorir()||celulaAmodificar->estaMuerta()){
+			celulaAmodificar->reanimarCelula();
+			Color* unColor;
+			unColor = celulaModelo->getColor();
+			celulaAmodificar->cambiarColorDeLaCelula(unColor->obtenerRojo(), unColor->obtenerVerde(), unColor->obtenerAzul());
+		}
 	}
 	else{
-		if(!celulaAmodificar->estaMuerta()){
+		if(celulaAmodificar->estaPorRevivir()||celulaAmodificar->estaViva()){
 			celulaAmodificar->infectarCelula();
-			celulaAmodificar->cambiarColorDeLaCelula(255, 255, 255);
+			celulaAmodificar->cambiarColorDeLaCelula(255, 255, 255); //Setea color blanco que representa una celula muerta
 		}
 	}
 }
 
-void Enfermero::actualizarCelulas(Lista<Tablero*>* losTableros, Informe* losInformes){
+void Enfermero::actualizarCelulas(Lista<Tablero*>* losTableros, Lista<Portal*>* losPortales, Informe* losInformes){
 	unsigned int muertesEnElTurno = 0;
 	unsigned int nacimientosEnElTurno = 0;
+
+	establecerColoresDeLasCelulas(losTableros, losPortales);
 
 	losTableros->iniciarCursor();
 	while(losTableros->avanzarCursor()){
@@ -146,7 +146,42 @@ void Enfermero::actualizarCelulas(Lista<Tablero*>* losTableros, Informe* losInfo
 		unTablero = losTableros->obtenerCursor();
 		actualizarUnTablero(unTablero, muertesEnElTurno, nacimientosEnElTurno);
 	}
+
 	actualizarInformes(losInformes, muertesEnElTurno, nacimientosEnElTurno);
+}
+
+void Enfermero::establecerColoresDeLasCelulas(Lista<Tablero*>* losTableros, Lista<Portal*>* losPortales){
+	losTableros->iniciarCursor();
+
+	while(losTableros->avanzarCursor()){
+		Tablero* unTablero;
+		unTablero = losTableros->obtenerCursor();
+		setearColoresEnUnTablero(unTablero);
+	}
+
+	losPortales->iniciarCursor();
+	while(losPortales->avanzarCursor()){
+		Portal* unPortal;
+		unPortal = losPortales->obtenerCursor();
+		aplicarEfectoDelPortal(unPortal);
+	}
+}
+
+void Enfermero::setearColoresEnUnTablero(Tablero* unTablero){
+	for(unsigned int columna = 1; columna <= unTablero->contarColumnas(); columna++){
+		for(unsigned int fila = 1; fila <= unTablero->contarFilas(); fila++){
+			Parcela* unaParcela;
+			unaParcela = unTablero->obtenerParcela(columna, fila);
+			Celula* unaCelula;
+			unaCelula = unaParcela->obtenerCelula();
+			if(unaCelula->estaPorRevivir()){
+				asignarColorPromedio(unTablero, columna, fila, unaCelula);
+			}
+			if(unaCelula->estaPorMorir()){
+				unaCelula->cambiarColorDeLaCelula(255, 255, 255); //Setea color blanco que representa una celula muerta
+			}
+		}
+	}
 }
 
 void Enfermero::actualizarUnTablero(Tablero* unTablero, unsigned int &muertesEnElTurno, unsigned int &nacimientosEnElTurno){
@@ -159,14 +194,12 @@ void Enfermero::actualizarUnTablero(Tablero* unTablero, unsigned int &muertesEnE
 			if(unaCelula->estaPorRevivir()){
 				unaCelula->revivirCelula();
 				unaCelula->aumentarEnergia(100*unaParcela->getTasaDeNatalidad());
-				asignarColorPromedio(unTablero, columna, fila, unaCelula);
 				nacimientosEnElTurno++;
 			}
 			if(unaCelula->estaPorMorir()){
 				unaCelula->matarCelula();
 				muertesEnElTurno++;
 				unaCelula->reducirEnergia(100*unaParcela->getTasaDeMortalidad());
-				unaCelula->cambiarColorDeLaCelula(255, 255, 255); //Setea color blanco que representa una celula muerta
 			}
 		}
 	}

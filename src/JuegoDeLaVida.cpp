@@ -250,7 +250,7 @@ void JuegoDeLaVida::ejecutarTurnos(unsigned int turnos){
 	unsigned int turnoAEjecutar = 1;
 	while((turnoAEjecutar<=turnos)&&(!this->losInformes->juegoCongelado())){
 		this->elEnfermero->evaluarCelulas(this->losTableros, this->losPortales);
-		this->elEnfermero->actualizarCelulas(this->losTableros, this->losInformes);
+		this->elEnfermero->actualizarCelulas(this->losTableros, this->losPortales, this->losInformes);
 		this->losInformes->aumentarUnTurno();
 		this->elDibujante->dibujarTableros(this->losTableros, this->losInformes->getTurno());
 		this->laPantalla->mostrarInformesDelJuego(this->losInformes);
