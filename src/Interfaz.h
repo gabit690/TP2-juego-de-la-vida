@@ -25,6 +25,16 @@ class Interfaz {
 		void mostrarBienvenida();
 
 		/* PRE: -.
+		 * POST: Muestra el pedido de ingreso de la ruta de un archivo.
+		 */
+		void pedirRutaDeUnArchivo();
+
+		/* PRE: -.
+		 * POST: Muestra que el archivo no existe.
+		 */
+		void mostrarQueElArchivoNoExiste();
+
+		/* PRE: -.
 		 * POST: Muestra que el dato ingresado es invalido.
 		 */
 		void mostrarErrorDatoInvalido();

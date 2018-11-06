@@ -35,8 +35,7 @@ void JuegoDeLaVida::ingresarRutaDelArchivo(std::ifstream& archivo){
 	bool salirDelBucle = false;
 	do
 	{
-		cout << ">>> Ingrese la ruta del archivo de texto con su extension para procesar." << endl;
-		cout << "Su respuesta: ";
+		this->laPantalla->pedirRutaDeUnArchivo();
 		cin >> nombreDeArchivo;
 		cin.ignore(256,'\n');
 
@@ -45,8 +44,7 @@ void JuegoDeLaVida::ingresarRutaDelArchivo(std::ifstream& archivo){
 		salirDelBucle = archivo.is_open();
 		if(!salirDelBucle)
 		{
-			cout << endl;
-			cout << "¡¡¡ El nombre del archivo ingresado no existe. !!!" << endl << endl;
+			this->laPantalla->mostrarQueElArchivoNoExiste();
 		}
 
 	}while(salirDelBucle == false);
