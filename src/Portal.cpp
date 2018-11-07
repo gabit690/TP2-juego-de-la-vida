@@ -6,8 +6,9 @@
  */
 
 #include "Portal.h"
+using namespace std;
 
-Portal::Portal(std::string nombreTableroOrigen, std::string nombreTableroDestino,
+Portal::Portal(string nombreTableroOrigen, string nombreTableroDestino,
 				Parcela* origen, Parcela* destino, TipoDePortal tipo){
 
 	this->taberoOrigen = nombreTableroOrigen;
@@ -29,11 +30,11 @@ bool Portal::esPortalPasivo(){
 	return (this->tipo==PASIVO);
 }
 
-std::string Portal::getNombreTableroOrigen(){
+string Portal::getNombreTableroOrigen(){
 	return this->taberoOrigen;
 }
 
-std::string Portal::getNombreTableroDestino(){
+string Portal::getNombreTableroDestino(){
 	return this->taberoDestino;
 }
 

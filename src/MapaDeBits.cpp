@@ -1,4 +1,5 @@
 #include "MapaDeBits.h"
+using namespace std;
 
 MapaDeBits::MapaDeBits(unsigned int ancho, unsigned int alto){
 	this->imagen = new BMP;
@@ -12,8 +13,8 @@ void MapaDeBits::asignar(unsigned int pixelX, unsigned int pixelY, Color* nuevoC
 	this->imagen->SetPixel(pixelX, pixelY, nuevoColor->obtenerPixel());
 }
 
-void MapaDeBits::escribir(std::string nombreDeArchivo){
-	std::string nombre = (nombreDeArchivo+".BMP");
+void MapaDeBits::escribir(string nombreDeArchivo){
+	string nombre = (nombreDeArchivo+".BMP");
 	this->imagen->WriteToFile(nombre.c_str());
 }
 

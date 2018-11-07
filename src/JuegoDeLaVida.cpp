@@ -30,7 +30,7 @@ void JuegoDeLaVida::jugar(){
 	}while(!terminar);
 }
 
-void JuegoDeLaVida::ingresarRutaDelArchivo(std::ifstream& archivo){
+void JuegoDeLaVida::ingresarRutaDelArchivo(ifstream& archivo){
 	string nombreDeArchivo;
 	bool salirDelBucle = false;
 	do
@@ -75,7 +75,7 @@ void JuegoDeLaVida::procesarArchivo(ifstream& archivo){
 	archivo.close();
 }
 
-void JuegoDeLaVida::agregarUnTablero(std::ifstream& archivo){
+void JuegoDeLaVida::agregarUnTablero(ifstream& archivo){
 	string nombreTablero;
 	unsigned int ancho;
 	unsigned int alto;
@@ -87,7 +87,7 @@ void JuegoDeLaVida::agregarUnTablero(std::ifstream& archivo){
 	this->losTableros->agregar(unTablero);
 }
 
-void JuegoDeLaVida::configurarUnaParcela(std::ifstream& archivo){
+void JuegoDeLaVida::configurarUnaParcela(ifstream& archivo){
 	string nombreTablero;
 	unsigned int columna;
 	unsigned int fila;
@@ -115,7 +115,7 @@ void JuegoDeLaVida::configurarUnaParcela(std::ifstream& archivo){
 	laParcela->setTasaDeMortalidad(tasaMortalidad);
 }
 
-Tablero* JuegoDeLaVida::obtenerUnTableroCreado(std::string nombreTablero){
+Tablero* JuegoDeLaVida::obtenerUnTableroCreado(string nombreTablero){
 	bool encontrado = false;
 	Tablero* unTablero;
 	this->losTableros->iniciarCursor();
@@ -126,14 +126,14 @@ Tablero* JuegoDeLaVida::obtenerUnTableroCreado(std::string nombreTablero){
 	return unTablero;
 }
 
-void JuegoDeLaVida::agregarUnPortal(std::ifstream& archivo){
-	std::string tipo;
+void JuegoDeLaVida::agregarUnPortal(ifstream& archivo){
+	string tipo;
 
-	std::string nombreTableroOrigen;
+	string nombreTableroOrigen;
 	unsigned int columnaOrigen;
 	unsigned int filaOrigen;
 
-	std::string nombreTableroDestino;
+	string nombreTableroDestino;
 	unsigned int columnaDestino;
 	unsigned int filaDestino;
 

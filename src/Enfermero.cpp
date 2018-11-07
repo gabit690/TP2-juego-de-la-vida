@@ -151,8 +151,8 @@ void Enfermero::actualizarCelulas(Lista<Tablero*>* losTableros, Lista<Portal*>* 
 }
 
 void Enfermero::establecerColoresDeLasCelulas(Lista<Tablero*>* losTableros, Lista<Portal*>* losPortales){
-	losTableros->iniciarCursor();
 
+	losTableros->iniciarCursor();
 	while(losTableros->avanzarCursor()){
 		Tablero* unTablero;
 		unTablero = losTableros->obtenerCursor();
@@ -177,9 +177,6 @@ void Enfermero::setearColoresEnUnTablero(Tablero* unTablero){
 			if(unaCelula->estaPorRevivir()){
 				asignarColorPromedio(unTablero, columna, fila, unaCelula);
 			}
-			if(unaCelula->estaPorMorir()){
-				unaCelula->cambiarColorDeLaCelula(255, 255, 255); //Setea color blanco que representa una celula muerta
-			}
 		}
 	}
 }
@@ -200,6 +197,7 @@ void Enfermero::actualizarUnTablero(Tablero* unTablero, unsigned int &muertesEnE
 				unaCelula->matarCelula();
 				muertesEnElTurno++;
 				unaCelula->reducirEnergia(100*unaParcela->getTasaDeMortalidad());
+				unaCelula->cambiarColorDeLaCelula(255, 255, 255); //Setea color blanco que representa una celula muerta
 			}
 		}
 	}

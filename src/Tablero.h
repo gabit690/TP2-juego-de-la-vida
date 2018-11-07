@@ -2,6 +2,7 @@
 #define TABLERO_H_
 
 #include "Parcela.h"
+#include <string>
 
 /*
  * Matriz bidimensional que sera la encargada de contener los elementos del juego.

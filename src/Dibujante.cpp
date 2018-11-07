@@ -6,6 +6,7 @@
  */
 
 #include "Dibujante.h"
+using namespace std;
 
 Dibujante::Dibujante(){
 	this->medidaDeUnaParcelaCuadrada = 30;	// 30x30 pixeles
@@ -27,7 +28,7 @@ void Dibujante::dibujarUnTablero(Tablero* unTablero, unsigned int tunoDeJuego){
 	MapaDeBits* imagen = new MapaDeBits(ancho, alto);
 	dibujarCuadricula(imagen, ancho, alto);
 	dibujarContenidoDelTablero(unTablero, imagen);
-	std::string nombre = unTablero->obtenerNombre()+"Turno"+std::to_string(tunoDeJuego);
+	string nombre = unTablero->obtenerNombre()+"Turno"+to_string(tunoDeJuego);
 	imagen->escribir(nombre);
 	delete imagen;
 }

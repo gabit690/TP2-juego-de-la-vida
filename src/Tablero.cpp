@@ -1,6 +1,7 @@
 #include "Tablero.h"
+using namespace std;
 
-Tablero::Tablero(std::string  unNombre, unsigned int cantidadDeColumnas, unsigned int cantidadDeFilas){
+Tablero::Tablero(string  unNombre, unsigned int cantidadDeColumnas, unsigned int cantidadDeFilas){
 
 	this->nombre = unNombre;
 	//Creaccion del tablero con punteros a parcelas
@@ -34,7 +35,7 @@ unsigned int Tablero::contarFilas(){
 	return this->cantidadDeFilas;
 }
 
-std::string Tablero::obtenerNombre(){
+string Tablero::obtenerNombre(){
 	return this->nombre;
 }
 
