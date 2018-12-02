@@ -7,6 +7,7 @@
 #include "Tablero.h"
 #include "Interfaz.h"
 #include "Informe.h"
+#include "Grafo.h"
 #include <fstream>
 
 class JuegoDeLaVida {
@@ -18,6 +19,7 @@ class JuegoDeLaVida {
 		Lista<Portal*>* losPortales;
 		Interfaz* laPantalla;
 		Informe* losInformes;
+		Grafo* elGrafo;
 
 	public:
 
@@ -116,6 +118,22 @@ class JuegoDeLaVida {
 		 * Post: Libera la memoria pedida por la lista de Tableros.
 		 */
 		void liberarTableros();
+
+		/* Pre: -.
+		 * Post: ingresa los identificadores de los tableros como vertices y los portales como aristas que
+		 * conforman el grafo.
+		 */
+		void configurarGrafo();
+
+		/* Pre: -.
+		 * Post: arma los vertices del grafo usando los identificadores de los tableros.
+		 */
+		void ingresarVertices(Lista<Tablero*>* tableros);
+
+		/* Pre: -.
+		 * Post: arma las aristas del grafo usando los portales del juego.
+		 */
+		void ingresarAristas(Lista<Portal*>* portales);
 };
 
 #endif /* JUEGODELAVIDA_H_ */

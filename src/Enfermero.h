@@ -6,6 +6,7 @@
 #include "Tablero.h"
 #include "Informe.h"
 #include "Portal.h"
+#include "Grafo.h"
 
 class Enfermero {
 
@@ -25,12 +26,12 @@ class Enfermero {
 		/* PRE: Existen tableros para ser analizados.
 		 * POST: modifica definitivamente el estado de las celulas de los tableros.
 		 */
-		void actualizarCelulas(Lista<Tablero*>* losTableros, Lista<Portal*>* losPortales, Informe* losInformes);
+		void actualizarCelulas(Lista<Tablero*>* losTableros, Lista<Portal*>* losPortales, Informe* losInformes, Grafo* elGrafo);
 
 		/* PRE: Existen tableros para ser analizados.
 		 * POST: modifica el color de las celulas en los tableros con el promedio de sus vecinas
 		 */
-		void establecerColoresDeLasCelulas(Lista<Tablero*>* losTableros, Lista<Portal*>* losPortales);
+		void establecerColoresDeLasCelulas(Lista<Tablero*>* losTableros, Lista<Portal*>* losPortales, Grafo* elGrafo);
 
 		/* PRE: unTablero existente en el juego.
 		 * POST: modifica definitivamente el estado de las celulas de un tablero
@@ -49,22 +50,22 @@ class Enfermero {
 		 * POST: aplica el efecto que genera unPortal en las celulas vinculadas por el
 		 * mismo.
 		 */
-		void aplicarEfectoDelPortal(Portal* unPortal);
+		void aplicarEfectoDelPortal(Portal* unPortal, Grafo* elGrafo);
 
 		/* PRE: celulaOrigen y celulaDestino son 2 celulas dentro de un tablero del juego.
 		 * POST: aplica el efecto de un portal Activo a las celulas vinculadas.
 		 */
-		void aplicarEfectoActivo(Celula* celulaOrigen, Celula* celulaDestino);
+		void aplicarEfectoActivo(Celula* celulaOrigen, Celula* celulaDestino, Arista* aristaDeIda, Arista* aristaDeVuelta);
 
 		/* PRE: celulaOrigen y celulaDestino son 2 celulas dentro de un tablero del juego.
 		 * POST: aplica el efecto de un portal Normal a las celulas vinculadas.
 		 */
-		void aplicarEfectoNormal(Celula* celulaOrigen, Celula* celulaDestino);
+		void aplicarEfectoNormal(Celula* celulaOrigen, Celula* celulaDestino, Arista* aristaDeIda);
 
 		/*PRE: celulaOrigen y celulaDestino son 2 celulas dentro de un tablero del juego.
 		 * POST: aplica el efecto de un portal Pasivo a las celulas vinculadas.
 		 */
-		void aplicarEfectoPasivo(Celula* celulaOrigen, Celula* celulaDestino);
+		void aplicarEfectoPasivo(Celula* celulaOrigen, Celula* celulaDestino, Arista* aristaDeIda);
 
 		/*PRE: celulaModelo y celulaAmodificar son 2 celulas dentro de un tablero del juego.
 		 * POST: copia el estado de celulaModelo a celulaAmodificar.

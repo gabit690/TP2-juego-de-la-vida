@@ -15,6 +15,7 @@ JuegoDeLaVida::JuegoDeLaVida(){
 	this->losPortales = new Lista<Portal*>();;
 	this->laPantalla = new Interfaz;
 	this->losInformes = new Informe();
+	this->elGrafo = new Grafo();
 }
 
 void JuegoDeLaVida::jugar(){
@@ -22,12 +23,45 @@ void JuegoDeLaVida::jugar(){
 	ifstream archivoInicial;
 	ingresarRutaDelArchivo(archivoInicial);
 	procesarArchivo(archivoInicial);
+	this->configurarGrafo();
 	unsigned int turno = 0;
 	this->elDibujante->dibujarTableros(this->losTableros, turno);
 	bool terminar = false;
 	do{
 		comenzarUnaPartida(terminar);
 	}while(!terminar);
+}
+
+void JuegoDeLaVida::configurarGrafo(){
+	this->ingresarVertices(this->losTableros);
+	this->ingresarAristas(this->losPortales);
+}
+
+void JuegoDeLaVida::ingresarVertices(Lista<Tablero*>* tableros){
+	tableros->iniciarCursor();
+	while(tableros->avanzarCursor()){
+		Tablero* unTablero;
+		unTablero = tableros->obtenerCursor();
+		this->elGrafo->agregarUnVertice(unTablero->obtenerNombre());
+	}
+}
+
+void JuegoDeLaVida::ingresarAristas(Lista<Portal*>* portales){
+	portales->iniciarCursor();
+	while(portales->avanzarCursor()){
+		Portal* unPortal;
+		unPortal = portales->obtenerCursor();
+
+		string inicioDeArista = unPortal->getNombreTableroOrigen();
+		string finalDeArista = unPortal->getNombreTableroDestino();
+
+		this->elGrafo->agregarUnaArista(inicioDeArista, finalDeArista);
+
+		if(unPortal->esPortalActivo()){
+			this->elGrafo->agregarUnaArista(finalDeArista, inicioDeArista);
+		}
+
+	}
 }
 
 void JuegoDeLaVida::ingresarRutaDelArchivo(ifstream& archivo){
@@ -238,7 +272,8 @@ void JuegoDeLaVida::realizarAccion(unsigned int numeroElegido){
 	case 2: reiniciarJuego();
 			this->elDibujante->dibujarTableros(this->losTableros, this->losInformes->getTurno());
 			break;
-	case 3: this->laPantalla->mostrarFinalizacionDelJuego();
+	case 3: //Dar informacion del grafo.
+			this->laPantalla->mostrarFinalizacionDelJuego();
 			break;
 	}
 }
@@ -250,13 +285,15 @@ void JuegoDeLaVida::reiniciarJuego(){
 	ifstream nuevoArchivoInicial;
 	ingresarRutaDelArchivo(nuevoArchivoInicial);
 	procesarArchivo(nuevoArchivoInicial);
+	this->elGrafo->reiniciarGrafo();
+	this->configurarGrafo();
 }
 
 void JuegoDeLaVida::ejecutarTurnos(unsigned int turnos){
 	unsigned int turnoAEjecutar = 1;
 	while((turnoAEjecutar<=turnos)&&(!this->losInformes->juegoCongelado())){
 		this->elEnfermero->evaluarCelulas(this->losTableros, this->losPortales);
-		this->elEnfermero->actualizarCelulas(this->losTableros, this->losPortales, this->losInformes);
+		this->elEnfermero->actualizarCelulas(this->losTableros, this->losPortales, this->losInformes, this->elGrafo);
 		this->losInformes->aumentarUnTurno();
 		this->elDibujante->dibujarTableros(this->losTableros, this->losInformes->getTurno());
 		this->laPantalla->mostrarInformesDelJuego(this->losInformes);
