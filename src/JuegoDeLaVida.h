@@ -134,6 +134,17 @@ class JuegoDeLaVida {
 		 * Post: arma las aristas del grafo usando los portales del juego.
 		 */
 		void ingresarAristas(Lista<Portal*>* portales);
+
+		/* Pre: -.
+		 * Post: pide al usuario un tablero de origen y destino para saber el camino minimo con
+		 * menor cantidad de tranferencias de celulas entre ambos tableros y muestra la informacion por pantalla.
+		 */
+		void procesarGrafo();
+
+		/* Pre: cantidadDeTableros > 0.
+		 * Post: obtiene por parte del usuario la eleccion de un tablero de la lista de tableros.
+		 */
+		unsigned int elegirUnTablero(unsigned int cantidadDeTableros);
 };
 
 #endif /* JUEGODELAVIDA_H_ */

@@ -3,6 +3,8 @@
 #define INTERFAZ_H_
 
 #include "Informe.h"
+#include "Pila.h"
+#include <string>
 
 /*
  * La 'Interfaz' se encarga de mostrar mensajes determinados por consola.
@@ -53,6 +55,16 @@ class Interfaz {
 		 */
 		void pedirUnaCantidadDeTurnos();
 
+		/* PRE: cantidadDeTableros es la cantidad de tableros en el juego.
+		 * POST: Pide una posicion que corresponde a uno de los tableros del juego.
+		 */
+		void pedirEleccionDeUnTablero(unsigned int cantidadDeTableros);
+
+		/* PRE: -.
+		 * POST: muestra por pantalla que se escogio dos veces el mismo tablero.
+		 */
+		void mostrarEleccionDelMismoTablero();
+
 		/* PRE: informes inicializado.
 		 * POST: Muestra el informe de los datos recolectados en el juego.
 		 */
@@ -67,6 +79,16 @@ class Interfaz {
 		 * POST: Muestra por pantalla un mensaje que indica la terminacion del juego.
 		 */
 		void mostrarFinalizacionDelJuego();
+
+		/* PRE: -.
+		 * POST: Muestra por pantalla el camino minimo entre dos tableros escogidos.
+		 */
+		void mostrarCaminoMinimo(Pila<std::string>* elCaminoMinimo, unsigned int transferenciasDeCelulas);
+
+		/* PRE: -.
+		 * POST: Muestra por pantalla que no existen un camino minimo entre dos tableros.
+		 */
+		void mostarInexistenciaDeAlgunCaminoMinimo();
 
 };
 

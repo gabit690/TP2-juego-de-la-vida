@@ -272,11 +272,57 @@ void JuegoDeLaVida::realizarAccion(unsigned int numeroElegido){
 	case 2: reiniciarJuego();
 			this->elDibujante->dibujarTableros(this->losTableros, this->losInformes->getTurno());
 			break;
-	case 3: //Dar informacion del grafo.
+	case 3: this->procesarGrafo();
 			this->laPantalla->mostrarFinalizacionDelJuego();
 			break;
 	}
 }
+
+void JuegoDeLaVida::procesarGrafo(){
+	unsigned int tableroOrigenElegido;
+	unsigned int tableroDestinoElegido;
+	bool valido = false;
+	do{
+		tableroOrigenElegido = elegirUnTablero(this->losTableros->contarElementos());
+		tableroDestinoElegido = elegirUnTablero(this->losTableros->contarElementos());
+		valido = (tableroOrigenElegido!=tableroDestinoElegido);
+		if(!valido){
+			this->laPantalla->mostrarEleccionDelMismoTablero();
+		}
+	}while(!valido);
+
+	string nombreDelTableroOrigen = this->losTableros->obtener(tableroOrigenElegido)->obtenerNombre();
+	string nombreDelTablerodestino = this->losTableros->obtener(tableroDestinoElegido)->obtenerNombre();
+	unsigned int transferenciasDeCelulas = 0;
+
+	Pila<string>* elCaminoMinimo;
+	elCaminoMinimo = this->elGrafo->obtenerElCaminoMinimo(nombreDelTableroOrigen, nombreDelTablerodestino, transferenciasDeCelulas);
+
+	if(transferenciasDeCelulas>0){
+		this->laPantalla->mostrarCaminoMinimo(elCaminoMinimo, transferenciasDeCelulas);
+	}
+	else{
+		this->laPantalla->mostarInexistenciaDeAlgunCaminoMinimo();
+	}
+
+}
+
+unsigned int JuegoDeLaVida::elegirUnTablero(unsigned int cantidadDeTableros){
+	unsigned int eleccion;
+	bool valida = false;
+
+	do{
+		this->laPantalla->pedirEleccionDeUnTablero(cantidadDeTableros);
+		cin >> eleccion;
+		valida = ((eleccion>0)&&(eleccion<=cantidadDeTableros));
+		if(!valida){
+			this->laPantalla->mostrarErrorDatoInvalido();
+		}
+	}while(!valida);
+
+	return eleccion;
+}
+
 
 void JuegoDeLaVida::reiniciarJuego(){
 	this->losInformes->reiniciarInformes();

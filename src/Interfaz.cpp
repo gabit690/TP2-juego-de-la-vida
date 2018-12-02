@@ -25,7 +25,7 @@ void Interfaz::mostrarQueElArchivoNoExiste(){
 
 void Interfaz::mostrarErrorDatoInvalido(){
 	cout << endl;
-	cout << "El dato ingresado es invalido (igual que Tri@ca).";
+	cout << "El dato ingresado es invalido.";
 	cout << endl;
 }
 
@@ -57,6 +57,16 @@ void Interfaz::pedirUnaCantidadDeTurnos(){
 	cout << "Su respuesta: ";
 }
 
+void Interfaz::pedirEleccionDeUnTablero(unsigned int cantidadDeTableros){
+	cout << endl;
+	cout << ">>> Elija uno de los " << cantidadDeTableros << " tableros disponibles ingresando el numero de su posicion" <<  endl;
+	cout << "Su respuesta: ";
+}
+
+void Interfaz::mostrarEleccionDelMismoTablero(){
+	cout << ">>> Ingreso dos veces la posicion del mismo tablero. No se puede hacer eso." <<  endl << endl;
+}
+
 void Interfaz::mostrarInformesDelJuego(Informe* informes){
 	cout << endl;
 	cout << "INFORMES DEL TURNO NUMERO " << informes->getTurno() << endl;
@@ -74,8 +84,25 @@ void Interfaz::mostrarCantidadDeCelulasVivas(Informe* informes){
 	cout << endl;
 }
 
+
+void Interfaz::mostrarCaminoMinimo(Pila<std::string>* elCaminoMinimo, unsigned int transferenciasDeCelulas){
+	cout << endl;
+	cout << "***** Camino minimo entre los tableros escogidos. *****" << endl << endl;
+	while(!elCaminoMinimo->estaVacia()){
+		cout << elCaminoMinimo->desapilar() << endl;
+	}
+	cout << endl;
+	cout << "La transferencia acumulada en el camino es: " << transferenciasDeCelulas << endl;
+}
+
+void Interfaz::mostarInexistenciaDeAlgunCaminoMinimo(){
+	cout << endl;
+	cout <<  "No existe camino minimo donde se hayan producido transferencias entre los tableros escogidos" << endl << endl;
+}
+
 void Interfaz::mostrarFinalizacionDelJuego(){
 	cout << endl;
 	cout << "          ";
 	cout << "Programa finalizado. Ciao";
 }
+
