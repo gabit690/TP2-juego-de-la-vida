@@ -33,7 +33,7 @@ public:
 	/* Pre: -.
 	 * Post: crea una arista que va del origen hasta el destino indicado y la agrega a las aristas existentes en el grafo.
 	 */
-	void agregarUnaArista(std::string origen, std::string destino);
+	void agregarUnaArista(std::string origen, std::string destino, Portal* unPortal);
 
 	/* Pre: -.
 	 * Post: devuelve los vertices del grafo.
@@ -90,7 +90,7 @@ private:
 	/* Pre: pesoDeLaArista >= 0.
 	 * Post: etiqueta el vertice destino de una arista.
 	 */
-	void  etiquetarDestino(Vertice* inicio, Vertice* llegada, unsigned int pesoDeLaArista);
+	void  etiquetarDestino(Vertice* inicio, Vertice* llegada, unsigned int pesoDeLaArista, std::string destino);
 
 	/* Pre: -.
 	 * Post: apila todas las aristas adyacentes al vertices duenio de la lista de aristas.

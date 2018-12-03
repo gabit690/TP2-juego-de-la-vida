@@ -56,9 +56,16 @@ class Interfaz {
 		void pedirUnaCantidadDeTurnos();
 
 		/* PRE: cantidadDeTableros es la cantidad de tableros en el juego.
-		 * POST: Pide una posicion que corresponde a uno de los tableros del juego.
+		 * POST: Pide una posicion que corresponde a uno de los tableros del juego que era
+		 * considerado como ORIGEN..
 		 */
-		void pedirEleccionDeUnTablero(unsigned int cantidadDeTableros);
+		void pedirEleccionDeUnTableroOrigen(unsigned int cantidadDeTableros);
+
+		/* PRE: cantidadDeTableros es la cantidad de tableros en el juego.
+		 * POST: Pide una posicion que corresponde a uno de los tableros del juego que era
+		 * considerado como DESTINO.
+		 */
+		void pedirEleccionDeUnTableroDestino(unsigned int cantidadDeTableros);
 
 		/* PRE: -.
 		 * POST: muestra por pantalla que se escogio dos veces el mismo tablero.

@@ -142,9 +142,14 @@ class JuegoDeLaVida {
 		void procesarGrafo();
 
 		/* Pre: cantidadDeTableros > 0.
-		 * Post: obtiene por parte del usuario la eleccion de un tablero de la lista de tableros.
+		 * Post: obtiene por parte del usuario la eleccion de un tablero ORIGEN de la lista de tableros.
 		 */
-		unsigned int elegirUnTablero(unsigned int cantidadDeTableros);
+		unsigned int elegirTableroOrigen(unsigned int cantidadDeTableros);
+
+		/* Pre: cantidadDeTableros > 0.
+		 * Post: obtiene por parte del usuario la eleccion de un tablero DESTINO de la lista de tableros.
+		 */
+		unsigned int elegirTableroDestino(unsigned int cantidadDeTableros);
 };
 
 #endif /* JUEGODELAVIDA_H_ */

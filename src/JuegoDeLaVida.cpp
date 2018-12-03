@@ -55,10 +55,10 @@ void JuegoDeLaVida::ingresarAristas(Lista<Portal*>* portales){
 		string inicioDeArista = unPortal->getNombreTableroOrigen();
 		string finalDeArista = unPortal->getNombreTableroDestino();
 
-		this->elGrafo->agregarUnaArista(inicioDeArista, finalDeArista);
+		this->elGrafo->agregarUnaArista(inicioDeArista, finalDeArista, unPortal);
 
 		if(unPortal->esPortalActivo()){
-			this->elGrafo->agregarUnaArista(finalDeArista, inicioDeArista);
+			this->elGrafo->agregarUnaArista(finalDeArista, inicioDeArista, unPortal);
 		}
 
 	}
@@ -283,8 +283,8 @@ void JuegoDeLaVida::procesarGrafo(){
 	unsigned int tableroDestinoElegido;
 	bool valido = false;
 	do{
-		tableroOrigenElegido = elegirUnTablero(this->losTableros->contarElementos());
-		tableroDestinoElegido = elegirUnTablero(this->losTableros->contarElementos());
+		tableroOrigenElegido = elegirTableroOrigen(this->losTableros->contarElementos());
+		tableroDestinoElegido = elegirTableroDestino(this->losTableros->contarElementos());
 		valido = (tableroOrigenElegido!=tableroDestinoElegido);
 		if(!valido){
 			this->laPantalla->mostrarEleccionDelMismoTablero();
@@ -305,14 +305,31 @@ void JuegoDeLaVida::procesarGrafo(){
 		this->laPantalla->mostarInexistenciaDeAlgunCaminoMinimo();
 	}
 
+	delete elCaminoMinimo; // Borro la memoria pedida para la pila por el grafo en la su funcion para obtener el camino minimo.
 }
 
-unsigned int JuegoDeLaVida::elegirUnTablero(unsigned int cantidadDeTableros){
+unsigned int JuegoDeLaVida::elegirTableroOrigen(unsigned int cantidadDeTableros){
 	unsigned int eleccion;
 	bool valida = false;
 
 	do{
-		this->laPantalla->pedirEleccionDeUnTablero(cantidadDeTableros);
+		this->laPantalla->pedirEleccionDeUnTableroOrigen(cantidadDeTableros);
+		cin >> eleccion;
+		valida = ((eleccion>0)&&(eleccion<=cantidadDeTableros));
+		if(!valida){
+			this->laPantalla->mostrarErrorDatoInvalido();
+		}
+	}while(!valida);
+
+	return eleccion;
+}
+
+unsigned int JuegoDeLaVida::elegirTableroDestino(unsigned int cantidadDeTableros){
+	unsigned int eleccion;
+	bool valida = false;
+
+	do{
+		this->laPantalla->pedirEleccionDeUnTableroDestino(cantidadDeTableros);
 		cin >> eleccion;
 		valida = ((eleccion>0)&&(eleccion<=cantidadDeTableros));
 		if(!valida){
@@ -338,7 +355,7 @@ void JuegoDeLaVida::reiniciarJuego(){
 void JuegoDeLaVida::ejecutarTurnos(unsigned int turnos){
 	unsigned int turnoAEjecutar = 1;
 	while((turnoAEjecutar<=turnos)&&(!this->losInformes->juegoCongelado())){
-		this->elEnfermero->evaluarCelulas(this->losTableros, this->losPortales);
+		this->elEnfermero->evaluarCelulas(this->losTableros);
 		this->elEnfermero->actualizarCelulas(this->losTableros, this->losPortales, this->losInformes, this->elGrafo);
 		this->losInformes->aumentarUnTurno();
 		this->elDibujante->dibujarTableros(this->losTableros, this->losInformes->getTurno());
@@ -361,8 +378,7 @@ void JuegoDeLaVida::liberarPortales(){
 }
 
 void JuegoDeLaVida::liberarTableros(){
-	this->losTableros->iniciarCursor();
-	while(this->losTableros->avanzarCursor()){
+	while(!this->losTableros->estaVacia()){
 		Tablero* unTablero;
 		unTablero = this->losTableros->obtener(1);
 		this->losTableros->remover(1);
@@ -379,5 +395,6 @@ JuegoDeLaVida::~JuegoDeLaVida() {
 	delete this->losPortales;
 	delete this->laPantalla;
 	delete this->losInformes;
+	delete this->elGrafo;
 }
 

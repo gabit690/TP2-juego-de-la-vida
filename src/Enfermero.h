@@ -14,9 +14,9 @@ class Enfermero {
 
 		/* PRE: Existen tableros para ser analizados.
 		 * POST: cambia temporalmente el estado de la celulas de los tableros en base
-		 * a sus vecinas que tiene alrededor y a los portales existentes.
+		 * a sus vecinas que tiene alrededor.
 		 */
-		void evaluarCelulas(Lista<Tablero*>* losTableros, Lista<Portal*>* losPortales);
+		void evaluarCelulas(Lista<Tablero*>* losTableros);
 
 		/* PRE: unTablero existente en el juego.
 		 * POST: modifica temporalmente el estado de las celulas del tablero que seran actualizadas.
@@ -29,9 +29,10 @@ class Enfermero {
 		void actualizarCelulas(Lista<Tablero*>* losTableros, Lista<Portal*>* losPortales, Informe* losInformes, Grafo* elGrafo);
 
 		/* PRE: Existen tableros para ser analizados.
-		 * POST: modifica el color de las celulas en los tableros con el promedio de sus vecinas
+		 * POST: modifica el color de las celulas en los tableros con el promedio de sus vecinas y aplica el efecto de los
+		 * portales existentes contando las muertes y nacimientos que estas producen.
 		 */
-		void establecerColoresDeLasCelulas(Lista<Tablero*>* losTableros, Lista<Portal*>* losPortales, Grafo* elGrafo);
+		void establecerColoresDeLasCelulas(Lista<Tablero*>* losTableros, Lista<Portal*>* losPortales, Grafo* elGrafo, unsigned int &muertesEnElTurno, unsigned int &nacimientosEnElTurno);
 
 		/* PRE: unTablero existente en el juego.
 		 * POST: modifica definitivamente el estado de las celulas de un tablero
@@ -50,27 +51,27 @@ class Enfermero {
 		 * POST: aplica el efecto que genera unPortal en las celulas vinculadas por el
 		 * mismo.
 		 */
-		void aplicarEfectoDelPortal(Portal* unPortal, Grafo* elGrafo);
+		void aplicarEfectoDelPortal(Portal* unPortal, Grafo* elGrafo, unsigned int &muertesEnElTurno, unsigned int &nacimientosEnElTurno);
 
 		/* PRE: celulaOrigen y celulaDestino son 2 celulas dentro de un tablero del juego.
 		 * POST: aplica el efecto de un portal Activo a las celulas vinculadas.
 		 */
-		void aplicarEfectoActivo(Celula* celulaOrigen, Celula* celulaDestino, Arista* aristaDeIda, Arista* aristaDeVuelta);
+		void aplicarEfectoActivo(Celula* celulaOrigen, Celula* celulaDestino, Arista* aristaDeIda, Arista* aristaDeVuelta, unsigned int &muertesEnElTurno, unsigned int &nacimientosEnElTurno);
 
 		/* PRE: celulaOrigen y celulaDestino son 2 celulas dentro de un tablero del juego.
 		 * POST: aplica el efecto de un portal Normal a las celulas vinculadas.
 		 */
-		void aplicarEfectoNormal(Celula* celulaOrigen, Celula* celulaDestino, Arista* aristaDeIda);
+		void aplicarEfectoNormal(Celula* celulaOrigen, Celula* celulaDestino, Arista* aristaDeIda, unsigned int &muertesEnElTurno, unsigned int &nacimientosEnElTurno);
 
 		/*PRE: celulaOrigen y celulaDestino son 2 celulas dentro de un tablero del juego.
 		 * POST: aplica el efecto de un portal Pasivo a las celulas vinculadas.
 		 */
-		void aplicarEfectoPasivo(Celula* celulaOrigen, Celula* celulaDestino, Arista* aristaDeIda);
+		void aplicarEfectoPasivo(Celula* celulaOrigen, Celula* celulaDestino, Arista* aristaDeIda, unsigned int &nacimientosEnElTurno);
 
 		/*PRE: celulaModelo y celulaAmodificar son 2 celulas dentro de un tablero del juego.
-		 * POST: copia el estado de celulaModelo a celulaAmodificar.
+		 * POST: aplica el efecto producida por la accion de un portal hacia la celula receptora de ese efecto.
 		 */
-		void copiarEstadoEntreCelulas(Celula* celulaModelo, Celula* celulaAmodificar);
+		void modificarCelulaAfectada(Celula* celulaModelo, Celula* celulaAmodificar, unsigned int &muertesEnElTurno, unsigned int &nacimientosEnElTurno);
 
 		/*PRE: unTablero es un tablero del juego.
 		 * POST: le asigna un color a las celulas que naceran el siguiente turno.

@@ -1,7 +1,7 @@
 
 #include "Enfermero.h"
 
-void Enfermero::evaluarCelulas(Lista<Tablero*>* losTableros, Lista<Portal*>* losPortales){
+void Enfermero::evaluarCelulas(Lista<Tablero*>* losTableros){
 	losTableros->iniciarCursor();
 	while(losTableros->avanzarCursor()){
 		Tablero* unTablero;
@@ -63,7 +63,7 @@ void Enfermero::asignarColorPromedio(Tablero* unTablero,unsigned int columna, un
 }
 
 
-void Enfermero::aplicarEfectoDelPortal(Portal* unPortal, Grafo* elGrafo){
+void Enfermero::aplicarEfectoDelPortal(Portal* unPortal, Grafo* elGrafo, unsigned int &muertesEnElTurno, unsigned int &nacimientosEnElTurno){
 	Celula* celulaOrigen;
 	celulaOrigen = unPortal->getParcelaOrigen()->obtenerCelula();
 	Celula* celulaDestino;
@@ -75,50 +75,52 @@ void Enfermero::aplicarEfectoDelPortal(Portal* unPortal, Grafo* elGrafo){
 	if(unPortal->esPortalActivo()){
 		Arista* aristaDeVuelta;
 		aristaDeVuelta = elGrafo->buscarArista(unPortal->getNombreTableroDestino(), unPortal->getNombreTableroOrigen(), unPortal);
-		aplicarEfectoActivo(celulaOrigen, celulaDestino, aristaDeIda, aristaDeVuelta);
+		aplicarEfectoActivo(celulaOrigen, celulaDestino, aristaDeIda, aristaDeVuelta, muertesEnElTurno, nacimientosEnElTurno);
 	}
 	else{
 		if(unPortal->esPortalNormal()){
-			aplicarEfectoNormal(celulaOrigen, celulaDestino, aristaDeIda);
+			aplicarEfectoNormal(celulaOrigen, celulaDestino, aristaDeIda, muertesEnElTurno, nacimientosEnElTurno);
 		}
 		else{
-			aplicarEfectoPasivo(celulaOrigen, celulaDestino, aristaDeIda);
+			aplicarEfectoPasivo(celulaOrigen, celulaDestino, aristaDeIda, nacimientosEnElTurno);
 		}
 	}
 }
 
-void Enfermero::aplicarEfectoActivo(Celula* celulaOrigen, Celula* celulaDestino, Arista* aristaDeIda, Arista* aristaDeVuelta){
+void Enfermero::aplicarEfectoActivo(Celula* celulaOrigen, Celula* celulaDestino, Arista* aristaDeIda, Arista* aristaDeVuelta, unsigned int &muertesEnElTurno, unsigned int &nacimientosEnElTurno){
 	bool hayTransicionEnOrigen = (celulaOrigen->estaPorRevivir())||(celulaOrigen->estaPorMorir());
 	if(hayTransicionEnOrigen){
-		copiarEstadoEntreCelulas(celulaOrigen, celulaDestino);
+		modificarCelulaAfectada(celulaOrigen, celulaDestino, muertesEnElTurno, nacimientosEnElTurno);
 		if(celulaOrigen->estaPorRevivir()){
 			aristaDeIda->aumentarUnidadApeso();
 		}
-
 	}
 	else{
 		bool hayTransicionEnDestino = (celulaDestino->estaPorRevivir())||(celulaDestino->estaPorMorir());
 		if(hayTransicionEnDestino){
-			copiarEstadoEntreCelulas(celulaDestino, celulaOrigen);
+			modificarCelulaAfectada(celulaDestino, celulaOrigen, muertesEnElTurno, nacimientosEnElTurno);
 			if(celulaDestino->estaPorRevivir()){
-				aristaDeIda->aumentarUnidadApeso();
+				aristaDeVuelta->aumentarUnidadApeso();
 			}
 		}
 	}
 }
 
-void Enfermero::aplicarEfectoNormal(Celula* celulaOrigen, Celula* celulaDestino, Arista* aristaDeIda){
+void Enfermero::aplicarEfectoNormal(Celula* celulaOrigen, Celula* celulaDestino, Arista* aristaDeIda, unsigned int &muertesEnElTurno, unsigned int &nacimientosEnElTurno){
 	bool hayTransicionEnOrigen = (celulaOrigen->estaPorRevivir())||(celulaOrigen->estaPorMorir());
 	if(hayTransicionEnOrigen){
-		copiarEstadoEntreCelulas(celulaOrigen, celulaDestino);
+		modificarCelulaAfectada(celulaOrigen, celulaDestino, muertesEnElTurno, nacimientosEnElTurno);
 		if(celulaOrigen->estaPorRevivir()){
 			aristaDeIda->aumentarUnidadApeso();
 		}
 	}
 }
 
-void Enfermero::aplicarEfectoPasivo(Celula* celulaOrigen, Celula* celulaDestino, Arista* aristaDeIda){
+void Enfermero::aplicarEfectoPasivo(Celula* celulaOrigen, Celula* celulaDestino, Arista* aristaDeIda, unsigned int &nacimientosEnElTurno){
 	if(celulaOrigen->estaPorRevivir()){
+		if(celulaDestino->estaMuerta()||celulaDestino->estaPorRevivir()){
+			nacimientosEnElTurno++;
+		}
 		if(!celulaDestino->estaViva()){
 			celulaDestino->revivirCelula();
 		}
@@ -126,20 +128,28 @@ void Enfermero::aplicarEfectoPasivo(Celula* celulaOrigen, Celula* celulaDestino,
 	}
 }
 
-void Enfermero::copiarEstadoEntreCelulas(Celula* celulaModelo, Celula* celulaAmodificar){
+void Enfermero::modificarCelulaAfectada(Celula* celulaModelo, Celula* celulaAmodificar, unsigned int &muertesEnElTurno, unsigned int &nacimientosEnElTurno){
 	if(celulaModelo->estaPorRevivir()){
+		if(celulaAmodificar->estaMuerta()||celulaAmodificar->estaPorRevivir()){
+			nacimientosEnElTurno++;
+		}
 		if(!celulaAmodificar->estaViva()){
 			celulaAmodificar->revivirCelula();
-			Color* unColor;
-			unColor = celulaModelo->getColor();
-			celulaAmodificar->cambiarColorDeLaCelula(unColor->obtenerRojo(), unColor->obtenerVerde(), unColor->obtenerAzul());
 		}
+		Color* unColor;
+		unColor = celulaModelo->getColor();
+		celulaAmodificar->cambiarColorDeLaCelula(unColor->obtenerRojo(), unColor->obtenerVerde(), unColor->obtenerAzul());
+
 	}
 	else{
+		if(celulaAmodificar->estaViva()||celulaAmodificar->estaPorMorir()){
+			muertesEnElTurno++;
+		}
 		if(!celulaAmodificar->estaMuerta()){
 			celulaAmodificar->matarCelula();
-			celulaAmodificar->cambiarColorDeLaCelula(255, 255, 255); //Setea color blanco que representa una celula muerta
+
 		}
+		celulaAmodificar->cambiarColorDeLaCelula(255, 255, 255); //Setea color blanco que representa una celula muerta
 	}
 }
 
@@ -147,7 +157,7 @@ void Enfermero::actualizarCelulas(Lista<Tablero*>* losTableros, Lista<Portal*>* 
 	unsigned int muertesEnElTurno = 0;
 	unsigned int nacimientosEnElTurno = 0;
 
-	establecerColoresDeLasCelulas(losTableros, losPortales, elGrafo);
+	establecerColoresDeLasCelulas(losTableros, losPortales, elGrafo, muertesEnElTurno, nacimientosEnElTurno);
 
 	losTableros->iniciarCursor();
 	while(losTableros->avanzarCursor()){
@@ -159,7 +169,7 @@ void Enfermero::actualizarCelulas(Lista<Tablero*>* losTableros, Lista<Portal*>* 
 	actualizarInformes(losInformes, muertesEnElTurno, nacimientosEnElTurno);
 }
 
-void Enfermero::establecerColoresDeLasCelulas(Lista<Tablero*>* losTableros, Lista<Portal*>* losPortales, Grafo* elGrafo){
+void Enfermero::establecerColoresDeLasCelulas(Lista<Tablero*>* losTableros, Lista<Portal*>* losPortales, Grafo* elGrafo, unsigned int &muertesEnElTurno, unsigned int &nacimientosEnElTurno){
 
 	losTableros->iniciarCursor();
 	while(losTableros->avanzarCursor()){
@@ -172,7 +182,7 @@ void Enfermero::establecerColoresDeLasCelulas(Lista<Tablero*>* losTableros, List
 	while(losPortales->avanzarCursor()){
 		Portal* unPortal;
 		unPortal = losPortales->obtenerCursor();
-		aplicarEfectoDelPortal(unPortal, elGrafo);
+		aplicarEfectoDelPortal(unPortal, elGrafo, muertesEnElTurno, nacimientosEnElTurno);
 	}
 }
 

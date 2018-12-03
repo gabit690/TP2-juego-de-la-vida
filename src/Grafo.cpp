@@ -18,10 +18,11 @@ void Grafo::agregarUnVertice(std::string nombre){
 	this->vertices->agregar(nuevoVertice, this->vertices->contarElementos()+1);
 }
 
-void Grafo::agregarUnaArista(string origen, string destino){
+void Grafo::agregarUnaArista(string origen, string destino, Portal* unPortal){
 	Arista* nuevaArista = new Arista();
 	nuevaArista->setOrigen(origen);
 	nuevaArista->setDestino(destino);
+	nuevaArista->setPortalVinculado(unPortal);
 	this->aristas->agregar(nuevaArista, this->aristas->contarElementos()+1);
 }
 
@@ -72,16 +73,22 @@ void Grafo::etiquetarVertices(string origen, string destino){
 			this->apilarAristasDelVertice(segmentosAnalizados, llegada->getAdyacentes());
 		}
 
-		etiquetarDestino(inicio, llegada, pesoDeLaArista);
+		etiquetarDestino(inicio, llegada, pesoDeLaArista,destino);
 	}
 	delete segmentosAnalizados;
 }
 
-void Grafo::etiquetarDestino(Vertice* inicio, Vertice* llegada, unsigned int pesoDeLaArista){
+void Grafo::etiquetarDestino(Vertice* inicio, Vertice* llegada, unsigned int pesoDeLaArista, string destino){
 	unsigned int distanciaAcumulada = (inicio->getEtiqueta()->getAcumulacion()+pesoDeLaArista);
-	string elementoAnterior = inicio->getIdentificador();
-	llegada->compararEtiqueta(distanciaAcumulada, elementoAnterior);
 
+
+	string elementoAnterior = inicio->getIdentificador();
+
+	bool etiquetar = !((distanciaAcumulada==0)&&(llegada->getIdentificador().compare(destino)==0));
+
+	if(etiquetar){
+		llegada->compararEtiqueta(distanciaAcumulada, elementoAnterior);
+	}
 }
 
 void Grafo::apilarAristasDelVertice(Pila<Arista*>* segmentosAnalizados, Lista<Arista*>* aristas){
@@ -164,12 +171,14 @@ void Grafo::liberarVertices(){
 }
 
 void Grafo::liberarAristas(){
+
 	while(!this->aristas->estaVacia()){
 		Arista* removido;
 		removido = this->aristas->obtener(1);
-		this->vertices->remover(1);
+		this->aristas->remover(1);
 		delete removido;
 	}
+
 }
 
 void Grafo::setearAristasAdyacentes(){
