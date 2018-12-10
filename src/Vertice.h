@@ -1,9 +1,3 @@
-/*
- * Vertice.h
- *
- *  Created on: 29 nov. 2018
- *      Author: gabit
- */
 
 #ifndef VERTICE_H_
 #define VERTICE_H_

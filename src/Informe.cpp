@@ -59,15 +59,6 @@ void Informe::aumentarMuertesTotales(unsigned int valor){
 	this->muertesTotales+=valor;
 }
 
-void Informe::actualizaCambios(){
-	bool hayCambios = (this->nacimientos!=0)||(this->muertes!=0);
-	if(!hayCambios){
-		this->turnosSeguidosSinCambios++;
-	}else{
-		this->turnosSeguidosSinCambios = 0;
-	}
-}
-
 void Informe::reiniciarInformes(){
 	this->turno = 0;
 	this->celulasVivas = 0;

@@ -23,3 +23,7 @@ void Energia::restarEnergia(float valor){
 		this->energiaTotal = nuevaEnergia;
 	}
 }
+
+float Energia::obtenerCantidadDeEnergia(){
+	return this->energiaTotal;
+}

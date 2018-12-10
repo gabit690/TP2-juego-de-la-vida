@@ -83,11 +83,6 @@ class Informe {
 		 */
 		void aumentarMuertesTotales(unsigned int valor);
 
-		/* PRE: informes inicializados.
-		 * POST: controla si se produjeron cambios en el tablero.
-		 */
-		void actualizaCambios();
-
 		/* Pre: -.
 		 * Post: reinicia los datos de los informes como al comienzo del juego.
 		 */

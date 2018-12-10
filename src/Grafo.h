@@ -1,9 +1,3 @@
-/*
- * Grafo.h
- *
- *  Created on: 29 nov. 2018
- *      Author: gabit
- */
 
 #ifndef GRAFO_H_
 #define GRAFO_H_

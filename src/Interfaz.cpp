@@ -9,7 +9,7 @@ Interfaz::Interfaz(){
 
 void Interfaz::mostrarBienvenida(){
 	cout << "			";
-	cout << "Bienvenido al 'Juego de la vida 2.0'." << endl;
+	cout << "Bienvenido al 'Juego de la vida 2.5'." << endl;
 }
 
 void Interfaz::pedirRutaDeUnArchivo(){
@@ -59,13 +59,13 @@ void Interfaz::pedirUnaCantidadDeTurnos(){
 
 void Interfaz::pedirEleccionDeUnTableroOrigen(unsigned int cantidadDeTableros){
 	cout << endl;
-	cout << ">>> Elija uno de los " << cantidadDeTableros << " tableros disponibles que sera el ORIGEN ingresando el numero de su posicion" <<  endl;
+	cout << ">>> Elija uno de los " << cantidadDeTableros << " tableros disponibles que sera el ORIGEN ingresando un numero." <<  endl;
 	cout << "Su respuesta: ";
 }
 
 void Interfaz::pedirEleccionDeUnTableroDestino(unsigned int cantidadDeTableros){
 	cout << endl;
-	cout << ">>> Elija uno de los " << cantidadDeTableros << " tableros disponibles que sera el DESTINO ingresando el numero de su posicion" <<  endl;
+	cout << ">>> Elija uno de los " << cantidadDeTableros << " tableros disponibles que sera el DESTINO ingresando un numero." <<  endl;
 	cout << "Su respuesta: ";
 }
 
@@ -91,14 +91,17 @@ void Interfaz::mostrarCantidadDeCelulasVivas(Informe* informes){
 	cout << endl;
 }
 
-
 void Interfaz::mostrarCaminoMinimo(Pila<std::string>* elCaminoMinimo, unsigned int transferenciasDeCelulas){
 	cout << endl;
 	cout << "***** Camino minimo entre los tableros escogidos. *****" << endl << endl;
 	while(!elCaminoMinimo->estaVacia()){
-		cout << elCaminoMinimo->desapilar() << endl;
+		cout << elCaminoMinimo->desapilar();
+
+		if(!elCaminoMinimo->estaVacia()){
+			cout << " ---> ";
+		}
 	}
-	cout << endl;
+	cout << endl << endl;
 	cout << "La transferencia acumulada en el camino es: " << transferenciasDeCelulas << endl;
 }
 

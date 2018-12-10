@@ -1,10 +1,3 @@
-/*
- * Arista.h
- *
- *  Created on: 29 nov. 2018
- *      Author: gabit
- */
-
 #ifndef ARISTA_H_
 #define ARISTA_H_
 

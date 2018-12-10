@@ -31,6 +31,12 @@ class Energia{
 		 * post: disminuye el nivel de energia segun valor pero no baja de la cantidad 0.
 		 */
 		void restarEnergia(float valor);
+
+
+		/* pre: -.
+		 * post: devuelve la cantidad de energia.
+		 */
+		float obtenerCantidadDeEnergia();
 };
 
 #endif /* ENERGIA_H_ */
